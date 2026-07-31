@@ -88,8 +88,7 @@
   .pill.live::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(0,194,168,.2)}
 
   /* Stat cards */
-  .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:28px}
-  @media (max-width:1100px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-bottom:28px}
   @media (max-width:560px){.stats{grid-template-columns:1fr}}
   .stat{
     background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
@@ -498,6 +497,8 @@ function renderDashboard(data){
   const profsSet = new Set(dadosAulas.map(a=>a.prof).filter(Boolean));
   const realizadas = realAulas.filter(a=>isPast(a.data)).length;
   const proxima = AULAS.filter(a=>a.data && !isPast(a.data)).sort((a,b)=>a.data.localeCompare(b.data))[0];
+  const isCancelada = a => cleanMateria(a.materia)==='CANCELADA' || cleanMateria(a.aulaNum)==='CANCELADA';
+  const canceladas = realAulas.filter(isCancelada).length;
 
   // ---------- Stats ----------
   const stats = [
@@ -506,6 +507,7 @@ function renderDashboard(data){
     {label:'Professores', value: profsSet.size, sub:'Lecionando no curso', color:'#ff9a3d'},
     {label:'Alunos matriculados', value: CURSO.totalAlunos ?? '—', sub:'Turma cadastrada', color:'#ef4b6a'},
     {label:'Próxima aula', value: proxima ? fmtDate(proxima.data) : '—', sub: proxima ? (proxima.tema ? proxima.tema.slice(0,34)+(proxima.tema.length>34?'…':'') : 'Tema a definir') : 'Cronograma futuro ainda não preenchido', color:'#9c5cff'},
+    {label:'Aulas canceladas', value: canceladas, sub: canceladas ? `${((canceladas/realAulas.length)*100).toFixed(1)}% do cronograma` : 'Nenhuma cancelada até agora', color:'#c9435c'},
   ];
   document.getElementById('stats').innerHTML = stats.map(s=>`
     <div class="stat" style="--stat-color:${s.color}">
