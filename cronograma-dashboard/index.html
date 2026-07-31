@@ -146,6 +146,22 @@
   .vbar-val{font-size:11px;font-weight:700;color:var(--text-dim)}
   .vbar-lbl{font-size:10.5px;color:var(--text-faint);text-transform:capitalize;white-space:nowrap}
 
+  /* Aulas canceladas por disciplina */
+  .cancel-list{display:flex;flex-direction:column;gap:10px}
+  .cancel-row{
+    display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+    padding:12px 14px;border-radius:12px;background:var(--surface-2);border:1px solid var(--border);
+  }
+  .cancel-main{display:flex;align-items:center;gap:10px;min-width:0}
+  .cancel-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  .cancel-name{font-weight:700;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cancel-profs{font-size:12.5px;color:var(--text-dim);text-align:right}
+  .cancel-profs .icon-prof{color:var(--text-faint);margin-right:4px}
+  @media (max-width:640px){
+    .cancel-row{flex-direction:column;align-items:flex-start;gap:8px}
+    .cancel-profs{text-align:left}
+  }
+
   /* Section title */
   .section-title{display:flex;align-items:baseline;gap:10px;margin:40px 0 16px}
   .section-title h2{font-size:19px;margin:0;font-weight:800;letter-spacing:-.02em}
@@ -387,6 +403,16 @@
     </div>
   </section>
 
+  <section class="grid" style="grid-template-columns:1fr">
+    <div class="card">
+      <div class="card-head">
+        <h2>Aulas canceladas por disciplina</h2>
+        <span class="hint">Total de cancelamentos e professor responsável por matéria</span>
+      </div>
+      <div id="cancelList"></div>
+    </div>
+  </section>
+
   <div class="section-title">
     <h2>Cronograma completo</h2>
     <span id="cronograma-count"></span>
@@ -579,6 +605,34 @@ function renderDashboard(data){
       </div>`;
     }).join('');
     document.getElementById('chartTimeline').innerHTML = labels.length ? `<div class="vbar-wrap">${cols}</div>` : '<p style="color:var(--text-faint);font-size:13px">Sem dados suficientes.</p>';
+  }
+
+  // ---------- Aulas canceladas por disciplina ----------
+  {
+    const subjectOf = a => cleanMateria(a.materia)==='CANCELADA'
+      ? ((cleanText(a.aulaNum) || 'Disciplina não especificada').replace(/[\s\-–]+$/,'').trim() || 'Disciplina não especificada')
+      : cleanMateria(a.materia);
+    const cancelMap = {};
+    realAulas.filter(isCancelada).forEach(a=>{
+      const subj = subjectOf(a);
+      if(!cancelMap[subj]) cancelMap[subj] = { count:0, profs:new Set() };
+      cancelMap[subj].count++;
+      if(a.prof) cancelMap[subj].profs.add(a.prof);
+    });
+    const entries = Object.entries(cancelMap).sort((a,b)=>b[1].count-a[1].count);
+    const rows = entries.map(([subj,info])=>`
+      <div class="cancel-row">
+        <div class="cancel-main">
+          <span class="cancel-dot" style="background:${materiaColor(subj)}"></span>
+          <span class="cancel-name" title="${subj}">${subj}</span>
+          <span class="n-badge">${info.count}</span>
+        </div>
+        <div class="cancel-profs">${info.profs.size ? [...info.profs].join(', ') : 'Professor não informado'}</div>
+      </div>
+    `).join('');
+    document.getElementById('cancelList').innerHTML = entries.length
+      ? `<div class="cancel-list">${rows}</div>`
+      : '<p style="color:var(--text-faint);font-size:13px">Nenhuma aula cancelada até o momento.</p>';
   }
 
   // ---------- Table ----------
