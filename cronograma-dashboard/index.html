@@ -213,6 +213,35 @@
   .link-chip:hover{transform:translateY(-2px);border-color:var(--primary)}
   .link-chip svg{width:16px;height:16px;color:var(--primary);flex-shrink:0}
 
+  /* Upload card */
+  .upload-card{
+    display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:space-between;
+    margin-bottom:28px;border:1.5px dashed var(--border);transition:border-color .15s ease, background .15s ease;
+  }
+  .upload-card.dragover{border-color:var(--primary);background:rgba(91,95,242,.06)}
+  .upload-left{display:flex;align-items:center;gap:16px;min-width:260px}
+  .upload-icon{
+    width:46px;height:46px;border-radius:12px;flex-shrink:0;
+    background:linear-gradient(135deg,var(--primary),var(--primary-2));
+    display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px -6px rgba(91,95,242,.45);
+  }
+  .upload-icon svg{width:22px;height:22px}
+  .upload-card h2{margin:0 0 3px;font-size:15px;font-weight:700}
+  .upload-card p{margin:0;font-size:12.5px;color:var(--text-dim);max-width:440px}
+  .upload-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .btn-upload, .btn-reset{
+    font-family:inherit;font-size:13px;font-weight:700;padding:10px 18px;border-radius:10px;cursor:pointer;
+    border:1px solid var(--border);transition:transform .12s ease, opacity .12s ease;white-space:nowrap;
+  }
+  .btn-upload{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;border:none;
+    box-shadow:0 8px 18px -8px rgba(91,95,242,.6)}
+  .btn-upload:hover{transform:translateY(-1px)}
+  .btn-reset{background:var(--surface-2);color:var(--text-dim)}
+  .btn-reset:hover{color:var(--danger);border-color:var(--danger)}
+  .upload-status{width:100%;font-size:12.5px;margin-top:2px}
+  .upload-status.ok{color:var(--accent)}
+  .upload-status.err{color:var(--danger)}
+
   footer{margin-top:56px;text-align:center;color:var(--text-faint);font-size:12.5px}
   footer a{color:var(--text-dim)}
 
@@ -241,6 +270,27 @@
       <span class="pill" id="pill-atualizado">Atualizado em Jul/2026</span>
     </div>
   </header>
+
+  <section class="card upload-card" id="uploadCard">
+    <div class="upload-left">
+      <div class="upload-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 15V4M12 4L8 8M12 4l4 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <h2>Atualizar com uma nova planilha</h2>
+        <p>Envie um arquivo .xlsx no mesmo formato (abas <em>Cronograma</em>, <em>Disciplinas</em>, <em>Turma</em>) para atualizar todo o dashboard automaticamente. O arquivo é lido no seu navegador — nada é enviado a um servidor.</p>
+        <div class="upload-status" id="uploadStatus"></div>
+      </div>
+    </div>
+    <div class="upload-actions">
+      <label class="btn-upload" for="fileInput">Escolher planilha (.xlsx)</label>
+      <input type="file" id="fileInput" accept=".xlsx,.xlsm" hidden>
+      <button class="btn-reset" id="btnReset" hidden>Restaurar dados originais</button>
+    </div>
+  </section>
 
   <section class="stats" id="stats"></section>
 
@@ -317,8 +367,11 @@
   </footer>
 </div>
 
+<script src="vendor/xlsx.mini.min.js"></script>
 <script src="data.js"></script>
 <script>
+const STORAGE_KEY = 'cronograma-dashboard-custom-data';
+
 const fmtDate = (iso) => {
   if(!iso) return '—';
   const d = new Date(iso + 'T12:00:00');
@@ -330,190 +383,365 @@ const MATERIA_COLORS = {
   'PAI 25.2':'#ff9a3d', 'NLP 25.2':'#ef4b6a', 'DGL 25.2':'#9c5cff',
   'PLNA 25.2':'#2fb8e0', 'FERIADO':'#8991a8', 'Feriado':'#8991a8', 'CANCELADA':'#c9435c'
 };
-const materiaColor = (m) => MATERIA_COLORS[m] || '#8991a8';
+const PALETTE_FALLBACK = ['#5b5ff2','#00c2a8','#ff9a3d','#ef4b6a','#9c5cff','#2fb8e0','#f2b705','#33b16c'];
+function materiaColor(m){
+  if(MATERIA_COLORS[m]) return MATERIA_COLORS[m];
+  let h = 0; for(let i=0;i<m.length;i++) h = (h*31 + m.charCodeAt(i)) >>> 0;
+  return PALETTE_FALLBACK[h % PALETTE_FALLBACK.length];
+}
 
-function cleanMateria(m){ return m ? m.trim() : null; }
+function cleanMateria(m){ return m ? String(m).trim() : null; }
 
 const today = new Date();
 const isPast = (iso) => iso && new Date(iso+'T12:00:00') < today;
 
-// ---------- Stats ----------
-const realAulas = AULAS.filter(a => a.tema);
-const dadosAulas = realAulas.filter(a => cleanMateria(a.materia) && !['FERIADO','Feriado','CANCELADA'].includes(cleanMateria(a.materia)));
-const materiasSet = new Set(dadosAulas.map(a=>cleanMateria(a.materia)));
-const profsSet = new Set(dadosAulas.map(a=>a.prof).filter(Boolean));
-const realizadas = realAulas.filter(a=>isPast(a.data)).length;
-const proxima = AULAS.filter(a=>a.data && !isPast(a.data)).sort((a,b)=>a.data.localeCompare(b.data))[0];
-
-const stats = [
-  {label:'Total de aulas', value: realAulas.length, sub:`${realizadas} já realizadas`, color:'#5b5ff2'},
-  {label:'Disciplinas', value: DISCIPLINAS.length, sub:`${materiasSet.size} em andamento no cronograma`, color:'#00c2a8'},
-  {label:'Professores', value: profsSet.size, sub:'Lecionando no curso', color:'#ff9a3d'},
-  {label:'Alunos matriculados', value: CURSO.totalAlunos, sub:'Turma 2025-2', color:'#ef4b6a'},
-  {label:'Próxima aula', value: proxima ? fmtDate(proxima.data) : '—', sub: proxima ? (proxima.tema ? proxima.tema.slice(0,34)+(proxima.tema.length>34?'…':'') : 'Tema a definir') : 'Cronograma futuro ainda não preenchido', color:'#9c5cff'},
-];
-document.getElementById('stats').innerHTML = stats.map(s=>`
-  <div class="stat" style="--stat-color:${s.color}">
-    <div class="label">${s.label}</div>
-    <div class="value">${s.value}</div>
-    <div class="sub">${s.sub}</div>
-  </div>`).join('');
-
-// ---------- Chart: aulas por materia (donut, pure SVG) ----------
-(function(){
-  const counts = {};
-  dadosAulas.forEach(a=>{ const m=cleanMateria(a.materia); counts[m]=(counts[m]||0)+1; });
-  const entries = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-  const total = entries.reduce((s,e)=>s+e[1],0);
-  const R = 60, CX = 70, CY = 70, STROKE = 22, C = 2*Math.PI*R;
-  let offset = 0;
-  const segs = entries.map(([label,val])=>{
-    const frac = val/total;
-    const dash = frac*C;
-    const seg = `<circle cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="${materiaColor(label)}" stroke-width="${STROKE}"
-      stroke-dasharray="${dash} ${C-dash}" stroke-dashoffset="${-offset}" transform="rotate(-90 ${CX} ${CY})" stroke-linecap="butt"/>`;
-    offset += dash;
-    return seg;
-  }).join('');
-  const svg = `<svg viewBox="0 0 140 140" width="180" height="180">${segs}
-    <text x="70" y="66" text-anchor="middle" class="donut-center-label">${total}</text>
-    <text x="70" y="82" text-anchor="middle" class="donut-center-sub">aulas</text>
-  </svg>`;
-  const legend = entries.map(([label,val])=>`
-    <div class="item"><span class="dot" style="background:${materiaColor(label)}"></span>${label}<span class="val">${val}</span></div>
-  `).join('');
-  document.getElementById('chartMaterias').innerHTML = `<div class="donut-wrap">${svg}<div class="donut-legend">${legend}</div></div>`;
-})();
-
-// ---------- Chart: aulas por professor (horizontal bars) ----------
-(function(){
-  const counts = {};
-  dadosAulas.forEach(a=>{ if(a.prof) counts[a.prof]=(counts[a.prof]||0)+1; });
-  const entries = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-  const max = Math.max(...entries.map(e=>e[1]));
-  const rows = entries.map(([name,val])=>`
-    <div class="hbar-row">
-      <span class="pname" title="${name}">${name}</span>
-      <div class="hbar-track"><div class="hbar-fill" style="width:${(val/max*100).toFixed(1)}%"></div></div>
-      <span class="pval">${val}</span>
-    </div>
-  `).join('');
-  document.getElementById('chartProfs').innerHTML = `<div class="hbar-list">${rows}</div>`;
-})();
-
-// ---------- Chart: timeline (vertical bars per month) ----------
-(function(){
-  const byMonth = {};
-  realAulas.forEach(a=>{
-    const key = a.data.slice(0,7);
-    byMonth[key] = (byMonth[key]||0)+1;
-  });
-  const labels = Object.keys(byMonth).sort();
-  const max = Math.max(...labels.map(l=>byMonth[l]));
-  const cols = labels.map(l=>{
-    const [y,m] = l.split('-');
-    const lbl = new Date(y, m-1, 1).toLocaleDateString('pt-BR',{month:'short', year:'2-digit'});
-    const val = byMonth[l];
-    const pct = Math.max((val/max*100), 4);
-    return `<div class="vbar-col">
-      <span class="vbar-val">${val}</span>
-      <div class="vbar-track"><div class="vbar-fill" style="height:${pct}%"></div></div>
-      <span class="vbar-lbl">${lbl}</span>
-    </div>`;
-  }).join('');
-  document.getElementById('chartTimeline').innerHTML = `<div class="vbar-wrap">${cols}</div>`;
-})();
-
-// ---------- Table ----------
 const iconMaterial = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M14 4v5h5"/></svg>`;
 const iconVideo = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-4v12l-6-4z"/></svg>`;
 const iconZoom = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg>`;
 const iconYoutube = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M10 9l6 3-6 3z" fill="currentColor" stroke="none"/></svg>`;
+const iconLink = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1"/><path d="M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1"/></svg>`;
 
 function linkBtn(url, icon, title){
   if(!url) return '';
   return `<a class="link-btn" href="${url}" target="_blank" rel="noopener" title="${title}">${icon}</a>`;
 }
 
-function rowHtml(a){
-  const m = cleanMateria(a.materia);
-  const isSpecial = m && ['FERIADO','Feriado','CANCELADA'].includes(m);
-  const tag = m ? `<span class="tag" style="background:${materiaColor(m)}22;color:${materiaColor(m)}">${m}</span>` : '';
-  return `<tr data-materia="${m||''}" data-prof="${a.prof||''}" data-search="${(a.tema+' '+(a.prof||'')+' '+(m||'')).toLowerCase()}">
-    <td><span class="n-badge">${a.n}</span></td>
-    <td>${fmtDate(a.data)}<br><span style="color:var(--text-faint);font-size:11.5px;text-transform:capitalize">${a.dia||''}</span></td>
-    <td class="tema-cell">${a.tema}<span class="tema-sub">${tag}</span></td>
-    <td class="prof-cell">${a.prof || (isSpecial?'—':'<span style="color:var(--text-faint)">a definir</span>')}</td>
-    <td><div class="links-cell">
-      ${linkBtn(a.material, iconMaterial, 'Material')}
-      ${linkBtn(a.video, iconVideo, 'Vídeo')}
-      ${linkBtn(a.zoom, iconZoom, 'Zoom')}
-      ${linkBtn(a.youtube, iconYoutube, 'YouTube')}
-    </div></td>
-  </tr>`;
-}
+let CURRENT = null; // {AULAS, DISCIPLINAS, CURSO}
 
-const tbody = document.getElementById('tbody');
-function renderTable(){
-  const q = document.getElementById('search').value.trim().toLowerCase();
-  const fm = document.getElementById('filterMateria').value;
-  const fp = document.getElementById('filterProf').value;
-  const rows = realAulas.filter(a=>{
-    const m = cleanMateria(a.materia)||'';
-    if(fm && m!==fm) return false;
-    if(fp && (a.prof||'')!==fp) return false;
-    if(q && !(a.tema+' '+(a.prof||'')+' '+m).toLowerCase().includes(q)) return false;
-    return true;
-  });
-  document.getElementById('cronograma-count').textContent = `${rows.length} de ${realAulas.length} aulas`;
-  tbody.innerHTML = rows.length ? rows.map(rowHtml).join('') : `<tr class="empty-row"><td colspan="5">Nenhuma aula encontrada.</td></tr>`;
-}
+function renderDashboard(data){
+  CURRENT = data;
+  const { AULAS, DISCIPLINAS, CURSO } = data;
 
-// populate filter selects
-const materiaOptions = [...materiasSet].sort();
-document.getElementById('filterMateria').innerHTML += materiaOptions.map(m=>`<option value="${m}">${m}</option>`).join('');
-const profOptions = [...profsSet].sort();
-document.getElementById('filterProf').innerHTML += profOptions.map(p=>`<option value="${p}">${p}</option>`).join('');
+  const realAulas = AULAS.filter(a => a.tema);
+  const dadosAulas = realAulas.filter(a => cleanMateria(a.materia) && !['FERIADO','Feriado','CANCELADA'].includes(cleanMateria(a.materia)));
+  const materiasSet = new Set(dadosAulas.map(a=>cleanMateria(a.materia)));
+  const profsSet = new Set(dadosAulas.map(a=>a.prof).filter(Boolean));
+  const realizadas = realAulas.filter(a=>isPast(a.data)).length;
+  const proxima = AULAS.filter(a=>a.data && !isPast(a.data)).sort((a,b)=>a.data.localeCompare(b.data))[0];
 
-document.getElementById('search').addEventListener('input', renderTable);
-document.getElementById('filterMateria').addEventListener('change', renderTable);
-document.getElementById('filterProf').addEventListener('change', renderTable);
-renderTable();
+  // ---------- Stats ----------
+  const stats = [
+    {label:'Total de aulas', value: realAulas.length, sub:`${realizadas} já realizadas`, color:'#5b5ff2'},
+    {label:'Disciplinas', value: DISCIPLINAS.length, sub:`${materiasSet.size} em andamento no cronograma`, color:'#00c2a8'},
+    {label:'Professores', value: profsSet.size, sub:'Lecionando no curso', color:'#ff9a3d'},
+    {label:'Alunos matriculados', value: CURSO.totalAlunos ?? '—', sub:'Turma cadastrada', color:'#ef4b6a'},
+    {label:'Próxima aula', value: proxima ? fmtDate(proxima.data) : '—', sub: proxima ? (proxima.tema ? proxima.tema.slice(0,34)+(proxima.tema.length>34?'…':'') : 'Tema a definir') : 'Cronograma futuro ainda não preenchido', color:'#9c5cff'},
+  ];
+  document.getElementById('stats').innerHTML = stats.map(s=>`
+    <div class="stat" style="--stat-color:${s.color}">
+      <div class="label">${s.label}</div>
+      <div class="value">${s.value}</div>
+      <div class="sub">${s.sub}</div>
+    </div>`).join('');
 
-// ---------- Disciplinas ----------
-const discColors = ['#5b5ff2','#00c2a8','#ff9a3d','#ef4b6a','#9c5cff','#2fb8e0','#f2b705','#33b16c'];
-document.getElementById('discGrid').innerHTML = DISCIPLINAS.map((d,i)=>`
-  <div class="disc-card">
-    <div class="disc-top">
-      <div class="disc-num" style="background:${discColors[i%discColors.length]}">${i+1}</div>
-      <div>
-        <div class="disc-sigla">${d.sigla || 'Módulo ' + (i+1)}</div>
-        <h3>${d.nome.replace(/^Disciplina \d+\s*[–-]\s*/,'')}</h3>
+  // ---------- Chart: aulas por materia (donut, pure SVG) ----------
+  {
+    const counts = {};
+    dadosAulas.forEach(a=>{ const m=cleanMateria(a.materia); counts[m]=(counts[m]||0)+1; });
+    const entries = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+    const total = entries.reduce((s,e)=>s+e[1],0);
+    const R = 60, CX = 70, CY = 70, STROKE = 22, C = 2*Math.PI*R;
+    let offset = 0;
+    const segs = entries.map(([label,val])=>{
+      const frac = val/total;
+      const dash = frac*C;
+      const seg = `<circle cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="${materiaColor(label)}" stroke-width="${STROKE}"
+        stroke-dasharray="${dash} ${C-dash}" stroke-dashoffset="${-offset}" transform="rotate(-90 ${CX} ${CY})" stroke-linecap="butt"/>`;
+      offset += dash;
+      return seg;
+    }).join('');
+    const svg = total ? `<svg viewBox="0 0 140 140" width="180" height="180">${segs}
+      <text x="70" y="66" text-anchor="middle" class="donut-center-label">${total}</text>
+      <text x="70" y="82" text-anchor="middle" class="donut-center-sub">aulas</text>
+    </svg>` : '';
+    const legend = entries.map(([label,val])=>`
+      <div class="item"><span class="dot" style="background:${materiaColor(label)}"></span>${label}<span class="val">${val}</span></div>
+    `).join('');
+    document.getElementById('chartMaterias').innerHTML = total ? `<div class="donut-wrap">${svg}<div class="donut-legend">${legend}</div></div>` : '<p style="color:var(--text-faint);font-size:13px">Sem dados suficientes.</p>';
+  }
+
+  // ---------- Chart: aulas por professor (horizontal bars) ----------
+  {
+    const counts = {};
+    dadosAulas.forEach(a=>{ if(a.prof) counts[a.prof]=(counts[a.prof]||0)+1; });
+    const entries = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+    const max = Math.max(1, ...entries.map(e=>e[1]));
+    const rows = entries.map(([name,val])=>`
+      <div class="hbar-row">
+        <span class="pname" title="${name}">${name}</span>
+        <div class="hbar-track"><div class="hbar-fill" style="width:${(val/max*100).toFixed(1)}%"></div></div>
+        <span class="pval">${val}</span>
       </div>
+    `).join('');
+    document.getElementById('chartProfs').innerHTML = entries.length ? `<div class="hbar-list">${rows}</div>` : '<p style="color:var(--text-faint);font-size:13px">Sem dados suficientes.</p>';
+  }
+
+  // ---------- Chart: timeline (vertical bars per month) ----------
+  {
+    const byMonth = {};
+    realAulas.forEach(a=>{
+      const key = a.data.slice(0,7);
+      byMonth[key] = (byMonth[key]||0)+1;
+    });
+    const labels = Object.keys(byMonth).sort();
+    const max = Math.max(1, ...labels.map(l=>byMonth[l]));
+    const cols = labels.map(l=>{
+      const [y,m] = l.split('-');
+      const lbl = new Date(y, m-1, 1).toLocaleDateString('pt-BR',{month:'short', year:'2-digit'});
+      const val = byMonth[l];
+      const pct = Math.max((val/max*100), 4);
+      return `<div class="vbar-col">
+        <span class="vbar-val">${val}</span>
+        <div class="vbar-track"><div class="vbar-fill" style="height:${pct}%"></div></div>
+        <span class="vbar-lbl">${lbl}</span>
+      </div>`;
+    }).join('');
+    document.getElementById('chartTimeline').innerHTML = labels.length ? `<div class="vbar-wrap">${cols}</div>` : '<p style="color:var(--text-faint);font-size:13px">Sem dados suficientes.</p>';
+  }
+
+  // ---------- Table ----------
+  function rowHtml(a){
+    const m = cleanMateria(a.materia);
+    const isSpecial = m && ['FERIADO','Feriado','CANCELADA'].includes(m);
+    const tag = m ? `<span class="tag" style="background:${materiaColor(m)}22;color:${materiaColor(m)}">${m}</span>` : '';
+    return `<tr>
+      <td><span class="n-badge">${a.n}</span></td>
+      <td>${fmtDate(a.data)}<br><span style="color:var(--text-faint);font-size:11.5px;text-transform:capitalize">${a.dia||''}</span></td>
+      <td class="tema-cell">${a.tema}<span class="tema-sub">${tag}</span></td>
+      <td class="prof-cell">${a.prof || (isSpecial?'—':'<span style="color:var(--text-faint)">a definir</span>')}</td>
+      <td><div class="links-cell">
+        ${linkBtn(a.material, iconMaterial, 'Material')}
+        ${linkBtn(a.video, iconVideo, 'Vídeo')}
+        ${linkBtn(a.zoom, iconZoom, 'Zoom')}
+        ${linkBtn(a.youtube, iconYoutube, 'YouTube')}
+      </div></td>
+    </tr>`;
+  }
+
+  const tbody = document.getElementById('tbody');
+  function renderTable(){
+    const q = document.getElementById('search').value.trim().toLowerCase();
+    const fm = document.getElementById('filterMateria').value;
+    const fp = document.getElementById('filterProf').value;
+    const rows = realAulas.filter(a=>{
+      const m = cleanMateria(a.materia)||'';
+      if(fm && m!==fm) return false;
+      if(fp && (a.prof||'')!==fp) return false;
+      if(q && !(a.tema+' '+(a.prof||'')+' '+m).toLowerCase().includes(q)) return false;
+      return true;
+    });
+    document.getElementById('cronograma-count').textContent = `${rows.length} de ${realAulas.length} aulas`;
+    tbody.innerHTML = rows.length ? rows.map(rowHtml).join('') : `<tr class="empty-row"><td colspan="5">Nenhuma aula encontrada.</td></tr>`;
+  }
+
+  const filterMateria = document.getElementById('filterMateria');
+  const filterProf = document.getElementById('filterProf');
+  filterMateria.innerHTML = '<option value="">Todas as disciplinas</option>' + [...materiasSet].sort().map(m=>`<option value="${m}">${m}</option>`).join('');
+  filterProf.innerHTML = '<option value="">Todos os professores</option>' + [...profsSet].sort().map(p=>`<option value="${p}">${p}</option>`).join('');
+  document.getElementById('search').value = '';
+
+  const search = document.getElementById('search');
+  search.oninput = renderTable;
+  filterMateria.onchange = renderTable;
+  filterProf.onchange = renderTable;
+  renderTable();
+
+  // ---------- Disciplinas ----------
+  document.getElementById('discGrid').innerHTML = DISCIPLINAS.map((d,i)=>`
+    <div class="disc-card">
+      <div class="disc-top">
+        <div class="disc-num" style="background:${PALETTE_FALLBACK[i%PALETTE_FALLBACK.length]}">${i+1}</div>
+        <div>
+          <div class="disc-sigla">${d.sigla || 'Módulo ' + (i+1)}</div>
+          <h3>${(d.nome||'').replace(/^Disciplina \d+\s*[–-]\s*/,'')}</h3>
+        </div>
+      </div>
+      <p>${d.desc || 'Conteúdo detalhado a ser divulgado.'}</p>
     </div>
-    <p>${d.desc || 'Conteúdo detalhado a ser divulgado.'}</p>
-  </div>
-`).join('');
+  `).join('');
 
-// ---------- Links & Contacts ----------
-const iconLink = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1"/><path d="M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1"/></svg>`;
-document.getElementById('linksRow').innerHTML = CURSO.linksUteis.map(l=>`
-  <a class="link-chip" href="${l.url}" target="_blank" rel="noopener">${iconLink}${l.label}</a>
-`).join('');
+  // ---------- Links & Contacts ----------
+  document.getElementById('linksRow').innerHTML = (CURSO.linksUteis||[]).map(l=>`
+    <a class="link-chip" href="${l.url}" target="_blank" rel="noopener">${iconLink}${l.label}</a>
+  `).join('');
 
-document.getElementById('contactGrid').innerHTML = CURSO.contatos.map(c=>{
-  const initials = c.nome.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
-  return `<div class="contact-card">
-    <div class="avatar">${initials}</div>
-    <div>
-      <div class="name">${c.nome}</div>
-      <div class="role">${c.papel}</div>
-      <div class="info">${c.contato}</div>
-    </div>
-  </div>`;
-}).join('');
+  document.getElementById('contactGrid').innerHTML = (CURSO.contatos||[]).map(c=>{
+    const initials = c.nome.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+    return `<div class="contact-card">
+      <div class="avatar">${initials}</div>
+      <div>
+        <div class="name">${c.nome}</div>
+        <div class="role">${c.papel}</div>
+        <div class="info">${c.contato}</div>
+      </div>
+    </div>`;
+  }).join('');
 
-document.getElementById('curso-sub').textContent = `${CURSO.instituicao} · Dashboard do Cronograma de Aulas`;
+  document.getElementById('curso-sub').textContent = `${CURSO.instituicao || ''} · Dashboard do Cronograma de Aulas`;
+  if(CURSO.nome) document.querySelector('.brand h1').textContent = CURSO.nome;
+}
+
+// ============ Upload / parsing de novas planilhas ============
+
+// sheet_to_json arrays are indexed relative to the sheet's used range, which may
+// not start at column A (e.g. "B1:V180") — offset by the range's starting column.
+function colVal(row, letter, colOffset){
+  const idx = XLSX.utils.decode_col(letter) - (colOffset||0);
+  const v = row[idx];
+  return (v === undefined || v === '') ? null : v;
+}
+function sheetColOffset(ws){
+  if(!ws['!ref']) return 0;
+  return XLSX.utils.decode_range(ws['!ref']).s.c;
+}
+function cleanText(v){
+  if(v === null || v === undefined) return null;
+  const s = String(v).replace(/ /g,' ').trim();
+  return s || null;
+}
+function cellDateToISO(v){
+  if(v instanceof Date && !isNaN(v)) return v.toISOString().slice(0,10);
+  return null;
+}
+
+function parseCronograma(ws){
+  const rows = XLSX.utils.sheet_to_json(ws, { header:1, raw:true, defval:null });
+  const off = sheetColOffset(ws);
+  const out = [];
+  for(let i=5;i<rows.length;i++){
+    const row = rows[i]; if(!row) continue;
+    const n = colVal(row,'B',off);
+    const dataISO = cellDateToISO(colVal(row,'C',off));
+    const dia = cleanText(colVal(row,'D',off));
+    const materia = cleanText(colVal(row,'G',off));
+    const aulaNum = colVal(row,'I',off);
+    const tema = cleanText(colVal(row,'K',off));
+    const prof = cleanText(colVal(row,'M',off));
+    const material = cleanText(colVal(row,'O',off));
+    const video = cleanText(colVal(row,'Q',off));
+    const zoom = cleanText(colVal(row,'S',off));
+    const youtube = cleanText(colVal(row,'U',off));
+    if(!dataISO && !tema && !materia) continue;
+    out.push({ n, data: dataISO, dia, materia, aulaNum, tema, prof, material, video, zoom, youtube });
+  }
+  return out;
+}
+
+function parseDisciplinas(ws){
+  const rows = XLSX.utils.sheet_to_json(ws, { header:1, raw:true, defval:null });
+  const off = sheetColOffset(ws);
+  const out = [];
+  let current = null;
+  for(const row of rows){
+    if(!row) continue;
+    const b = cleanText(colVal(row,'B',off));
+    const c = cleanText(colVal(row,'C',off));
+    if(c && /^Disciplina \d/.test(c)){
+      current = { sigla: b || '', nome: c, desc: '' };
+      out.push(current);
+    } else if(c && current){
+      current.desc = (current.desc + ' ' + c).trim();
+    }
+  }
+  return out;
+}
+
+function parseTurma(ws){
+  const rows = XLSX.utils.sheet_to_json(ws, { header:1, raw:true, defval:null });
+  const off = sheetColOffset(ws);
+  let count = 0;
+  for(const row of rows){
+    if(!row) continue;
+    const nome = cleanText(colVal(row,'C',off));
+    if(nome && nome !== '#VALUE!') count++;
+  }
+  return count;
+}
+
+function findSheet(wb, name){
+  const found = wb.SheetNames.find(n => n.toLowerCase() === name.toLowerCase());
+  return found ? wb.Sheets[found] : null;
+}
+
+function setStatus(msg, kind){
+  const el = document.getElementById('uploadStatus');
+  el.textContent = msg;
+  el.className = 'upload-status' + (kind ? ' '+kind : '');
+}
+
+function handleWorkbook(wb, fileName){
+  const wsCron = findSheet(wb, 'Cronograma');
+  if(!wsCron) throw new Error('Aba "Cronograma" não encontrada na planilha.');
+  const AULAS = parseCronograma(wsCron);
+  if(!AULAS.length) throw new Error('Nenhuma aula encontrada na aba "Cronograma".');
+
+  const wsDisc = findSheet(wb, 'Disciplinas');
+  const DISCIPLINAS = wsDisc ? parseDisciplinas(wsDisc) : (CURRENT ? CURRENT.DISCIPLINAS : []);
+
+  const wsTurma = findSheet(wb, 'Turma');
+  const totalAlunos = wsTurma ? parseTurma(wsTurma) : (CURRENT ? CURRENT.CURSO.totalAlunos : null);
+
+  const CURSO_NEW = Object.assign({}, (CURRENT ? CURRENT.CURSO : CURSO), { totalAlunos });
+
+  const data = { AULAS, DISCIPLINAS, CURSO: CURSO_NEW };
+  renderDashboard(data);
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({ data, fileName, loadedAt: new Date().toISOString() })); }catch(e){}
+  document.getElementById('btnReset').hidden = false;
+  document.getElementById('pill-atualizado').textContent = `Dados de: ${fileName}`;
+  setStatus(`✓ ${AULAS.length} aulas carregadas de "${fileName}".`, 'ok');
+}
+
+function loadFile(file){
+  if(!file) return;
+  setStatus('Lendo planilha...', '');
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try{
+      const wb = XLSX.read(e.target.result, { type:'array', cellDates:true });
+      handleWorkbook(wb, file.name);
+    }catch(err){
+      console.error(err);
+      setStatus('Erro ao ler o arquivo: ' + err.message, 'err');
+    }
+  };
+  reader.onerror = () => setStatus('Não foi possível ler o arquivo.', 'err');
+  reader.readAsArrayBuffer(file);
+}
+
+document.getElementById('fileInput').addEventListener('change', (e) => {
+  loadFile(e.target.files[0]);
+});
+
+const uploadCard = document.getElementById('uploadCard');
+['dragenter','dragover'].forEach(ev => uploadCard.addEventListener(ev, (e)=>{ e.preventDefault(); uploadCard.classList.add('dragover'); }));
+['dragleave','drop'].forEach(ev => uploadCard.addEventListener(ev, (e)=>{ e.preventDefault(); uploadCard.classList.remove('dragover'); }));
+uploadCard.addEventListener('drop', (e) => {
+  const file = e.dataTransfer.files && e.dataTransfer.files[0];
+  if(file) loadFile(file);
+});
+
+document.getElementById('btnReset').addEventListener('click', () => {
+  try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+  document.getElementById('btnReset').hidden = true;
+  document.getElementById('pill-atualizado').textContent = 'Atualizado em Jul/2026';
+  setStatus('', '');
+  renderDashboard({ AULAS, DISCIPLINAS, CURSO });
+});
+
+// ---------- Init ----------
+(function init(){
+  let initial = { AULAS, DISCIPLINAS, CURSO };
+  try{
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+    if(saved && saved.data){
+      initial = saved.data;
+      document.getElementById('btnReset').hidden = false;
+      document.getElementById('pill-atualizado').textContent = `Dados de: ${saved.fileName}`;
+      setStatus(`Carregado de "${saved.fileName}" (salvo neste navegador).`, 'ok');
+    }
+  }catch(e){}
+  renderDashboard(initial);
+})();
 </script>
 </body>
 </html>
