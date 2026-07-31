@@ -49,13 +49,16 @@
     -webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:1320px;margin:0 auto;padding:32px 28px 80px}
+  @media (max-width:640px){
+    .wrap{padding:18px 14px 56px}
+  }
 
   /* Header */
   header.top{
     display:flex;justify-content:space-between;align-items:flex-start;gap:24px;
     margin-bottom:32px;flex-wrap:wrap;
   }
-  .brand{display:flex;align-items:center;gap:14px}
+  .brand{display:flex;align-items:center;gap:14px;min-width:0}
   .brand-mark{
     width:48px;height:48px;border-radius:14px;
     background:linear-gradient(135deg,var(--primary),var(--primary-2));
@@ -67,6 +70,15 @@
   .brand h1{font-size:20px;margin:0;font-weight:800;letter-spacing:-.02em}
   .brand p{margin:2px 0 0;font-size:13.5px;color:var(--text-dim)}
   .top-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  @media (max-width:640px){
+    header.top{margin-bottom:22px;gap:14px}
+    .brand-mark{width:40px;height:40px;border-radius:12px}
+    .brand-mark svg{width:20px;height:20px}
+    .brand h1{font-size:17px}
+    .brand p{font-size:12.5px}
+    .top-actions{width:100%}
+    .pill{font-size:11.5px;padding:6px 11px}
+  }
   .pill{
     font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:999px;
     background:var(--surface);border:1px solid var(--border);color:var(--text-dim);
@@ -103,6 +115,13 @@
   .card-head h2{font-size:15.5px;margin:0;font-weight:700;letter-spacing:-.01em}
   .card-head .hint{font-size:12px;color:var(--text-faint)}
   .chart-box{position:relative;height:260px}
+  @media (max-width:640px){
+    .card{padding:16px 16px;border-radius:14px}
+    .grid{gap:14px}
+    .chart-box{height:220px}
+    .donut-wrap{flex-direction:column;align-items:flex-start;gap:14px}
+    .donut-legend{max-height:none;width:100%}
+  }
 
   /* Custom charts (no external deps) */
   .donut-wrap{display:flex;align-items:center;gap:22px;height:100%}
@@ -134,13 +153,24 @@
   .section-title span{font-size:13px;color:var(--text-faint)}
 
   /* Filters */
-  .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+  .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
   .filters input, .filters select{
     font-family:inherit;font-size:13.5px;padding:9px 13px;border-radius:10px;
     border:1px solid var(--border);background:var(--surface-2);color:var(--text);
   }
   .filters input{flex:1;min-width:200px}
   .filters input:focus, .filters select:focus{outline:2px solid var(--primary);outline-offset:-1px}
+  .btn-clear{
+    font-family:inherit;font-size:13px;font-weight:700;padding:9px 15px;border-radius:10px;cursor:pointer;
+    border:1px solid var(--border);background:var(--surface-2);color:var(--text-dim);white-space:nowrap;
+    transition:color .12s ease, border-color .12s ease;
+  }
+  .btn-clear:hover{color:var(--danger);border-color:var(--danger)}
+  .btn-clear:disabled{opacity:.45;cursor:default;color:var(--text-dim);border-color:var(--border)}
+  @media (max-width:640px){
+    .filters{flex-direction:column;align-items:stretch}
+    .filters input, .filters select, .btn-clear{width:100%;min-width:0}
+  }
 
   /* Table */
   .table-card{padding:0;overflow:hidden}
@@ -151,9 +181,27 @@
     color:var(--text-faint);border-bottom:1px solid var(--border);background:var(--surface-2);
     position:sticky;top:0;
   }
+  thead th.sortable{cursor:pointer;user-select:none;white-space:nowrap}
+  thead th.sortable:hover{color:var(--text-dim)}
+  thead th.sortable .arrow{display:inline-block;margin-left:4px;opacity:.35;font-size:10px}
+  thead th.sortable.active .arrow{opacity:1;color:var(--primary)}
   tbody td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text)}
   tbody tr:last-child td{border-bottom:none}
   tbody tr:hover{background:var(--surface-2)}
+  mark{background:rgba(91,95,242,.25);color:inherit;border-radius:3px;padding:0 1px}
+  @media (max-width:640px){
+    .table-scroll{overflow-x:visible}
+    table{min-width:0}
+    thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+    tbody, tbody tr{display:block;width:100%}
+    tbody tr{border-bottom:1px solid var(--border);padding:12px 14px}
+    tbody tr:hover{background:none}
+    tbody td{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:6px 0;border-bottom:none;text-align:right}
+    tbody td::before{content:attr(data-label);font-size:11px;font-weight:700;color:var(--text-faint);text-transform:uppercase;letter-spacing:.03em;text-align:left;flex-shrink:0;padding-top:2px}
+    tbody td.tema-cell{flex-direction:column;align-items:flex-start;text-align:left;gap:4px}
+    tbody td.links-cell-row{flex-direction:column;align-items:flex-start}
+    .links-cell{justify-content:flex-start}
+  }
   .n-badge{
     display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:26px;padding:0 6px;
     border-radius:8px;background:var(--surface-2);border:1px solid var(--border);font-weight:700;font-size:12px;color:var(--text-dim);
@@ -247,6 +295,25 @@
 
   ::-webkit-scrollbar{height:8px;width:8px}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:8px}
+
+  @media (max-width:640px){
+    .stats{margin-bottom:20px}
+    .stat{padding:14px 16px}
+    .stat .value{font-size:24px}
+    .section-title{margin:28px 0 12px;flex-wrap:wrap}
+    .section-title h2{font-size:16.5px}
+    .upload-card{padding:18px 16px;gap:14px}
+    .upload-left{min-width:0;gap:12px}
+    .upload-icon{width:38px;height:38px}
+    .upload-icon svg{width:18px;height:18px}
+    .upload-actions{width:100%}
+    .btn-upload, .btn-reset{flex:1;text-align:center}
+    .disc-grid, .contact-grid{grid-template-columns:1fr}
+    .links-row{gap:8px}
+    .link-chip{padding:10px 14px;font-size:13px}
+    .link-btn{width:32px;height:32px}
+    footer{margin-top:36px}
+  }
 </style>
 </head>
 <body>
@@ -330,6 +397,19 @@
     <input type="text" id="search" placeholder="Buscar por tema, professor ou disciplina...">
     <select id="filterMateria"><option value="">Todas as disciplinas</option></select>
     <select id="filterProf"><option value="">Todos os professores</option></select>
+    <select id="filterStatus">
+      <option value="">Realizadas e futuras</option>
+      <option value="realizadas">Somente realizadas</option>
+      <option value="futuras">Somente futuras</option>
+    </select>
+    <select id="sortSelect">
+      <option value="data:1">Data (mais antiga primeiro)</option>
+      <option value="data:-1">Data (mais recente primeiro)</option>
+      <option value="tema:1">Tema (A-Z)</option>
+      <option value="prof:1">Professor (A-Z)</option>
+      <option value="n:1">Nº da aula</option>
+    </select>
+    <button class="btn-clear" id="btnClearFilters" type="button" disabled>Limpar filtros</button>
   </div>
 
   <div class="card table-card">
@@ -337,10 +417,10 @@
       <table>
         <thead>
           <tr>
-            <th style="width:48px">#</th>
-            <th style="width:100px">Data</th>
-            <th>Tema da aula</th>
-            <th style="width:150px">Professor</th>
+            <th class="sortable" data-sort="n" style="width:48px">#<span class="arrow">▲</span></th>
+            <th class="sortable" data-sort="data" style="width:100px">Data<span class="arrow">▲</span></th>
+            <th class="sortable" data-sort="tema">Tema da aula<span class="arrow">▲</span></th>
+            <th class="sortable" data-sort="prof" style="width:150px">Professor<span class="arrow">▲</span></th>
             <th style="width:120px">Recursos</th>
           </tr>
         </thead>
@@ -500,16 +580,24 @@ function renderDashboard(data){
   }
 
   // ---------- Table ----------
-  function rowHtml(a){
+  function highlight(text, q){
+    if(!q) return text;
+    const idx = text.toLowerCase().indexOf(q);
+    if(idx === -1) return text;
+    return text.slice(0,idx) + '<mark>' + text.slice(idx, idx+q.length) + '</mark>' + text.slice(idx+q.length);
+  }
+
+  function rowHtml(a, q){
     const m = cleanMateria(a.materia);
     const isSpecial = m && ['FERIADO','Feriado','CANCELADA'].includes(m);
     const tag = m ? `<span class="tag" style="background:${materiaColor(m)}22;color:${materiaColor(m)}">${m}</span>` : '';
+    const profTxt = a.prof || (isSpecial?'—':'<span style="color:var(--text-faint)">a definir</span>');
     return `<tr>
-      <td><span class="n-badge">${a.n}</span></td>
-      <td>${fmtDate(a.data)}<br><span style="color:var(--text-faint);font-size:11.5px;text-transform:capitalize">${a.dia||''}</span></td>
-      <td class="tema-cell">${a.tema}<span class="tema-sub">${tag}</span></td>
-      <td class="prof-cell">${a.prof || (isSpecial?'—':'<span style="color:var(--text-faint)">a definir</span>')}</td>
-      <td><div class="links-cell">
+      <td data-label="#"><span class="n-badge">${a.n}</span></td>
+      <td data-label="Data">${fmtDate(a.data)}<br><span style="color:var(--text-faint);font-size:11.5px;text-transform:capitalize">${a.dia||''}</span></td>
+      <td class="tema-cell" data-label="Tema">${highlight(a.tema, q)}<span class="tema-sub">${tag}</span></td>
+      <td class="prof-cell" data-label="Professor">${a.prof ? highlight(profTxt, q) : profTxt}</td>
+      <td class="links-cell-row" data-label="Recursos"><div class="links-cell">
         ${linkBtn(a.material, iconMaterial, 'Material')}
         ${linkBtn(a.video, iconVideo, 'Vídeo')}
         ${linkBtn(a.zoom, iconZoom, 'Zoom')}
@@ -519,31 +607,93 @@ function renderDashboard(data){
   }
 
   const tbody = document.getElementById('tbody');
+  const filterMateria = document.getElementById('filterMateria');
+  const filterProf = document.getElementById('filterProf');
+  const filterStatus = document.getElementById('filterStatus');
+  const sortSelect = document.getElementById('sortSelect');
+  const search = document.getElementById('search');
+  const btnClearFilters = document.getElementById('btnClearFilters');
+  let sortKey = 'data', sortDir = 1;
+
+  function sortValue(a, key){
+    if(key === 'n') return a.n ?? -Infinity;
+    if(key === 'data') return a.data || '';
+    if(key === 'tema') return (a.tema||'').toLowerCase();
+    if(key === 'prof') return (a.prof||'').toLowerCase();
+    return '';
+  }
+
+  function updateSortHeaders(){
+    document.querySelectorAll('th.sortable').forEach(th=>{
+      const active = th.dataset.sort === sortKey;
+      th.classList.toggle('active', active);
+      th.querySelector('.arrow').textContent = active ? (sortDir===1 ? '▲' : '▼') : '▲';
+    });
+    const wanted = sortKey + ':' + sortDir;
+    if(sortSelect.value !== wanted && [...sortSelect.options].some(o=>o.value===wanted)){
+      sortSelect.value = wanted;
+    }
+  }
+
   function renderTable(){
-    const q = document.getElementById('search').value.trim().toLowerCase();
-    const fm = document.getElementById('filterMateria').value;
-    const fp = document.getElementById('filterProf').value;
-    const rows = realAulas.filter(a=>{
+    const q = search.value.trim().toLowerCase();
+    const fm = filterMateria.value;
+    const fp = filterProf.value;
+    const fs = filterStatus.value;
+    let rows = realAulas.filter(a=>{
       const m = cleanMateria(a.materia)||'';
       if(fm && m!==fm) return false;
       if(fp && (a.prof||'')!==fp) return false;
+      if(fs === 'realizadas' && !isPast(a.data)) return false;
+      if(fs === 'futuras' && isPast(a.data)) return false;
       if(q && !(a.tema+' '+(a.prof||'')+' '+m).toLowerCase().includes(q)) return false;
       return true;
     });
+    rows = rows.slice().sort((a,b)=>{
+      const va = sortValue(a, sortKey), vb = sortValue(b, sortKey);
+      if(va < vb) return -1*sortDir;
+      if(va > vb) return 1*sortDir;
+      return 0;
+    });
     document.getElementById('cronograma-count').textContent = `${rows.length} de ${realAulas.length} aulas`;
-    tbody.innerHTML = rows.length ? rows.map(rowHtml).join('') : `<tr class="empty-row"><td colspan="5">Nenhuma aula encontrada.</td></tr>`;
+    tbody.innerHTML = rows.length ? rows.map(a=>rowHtml(a,q)).join('') : `<tr class="empty-row"><td colspan="5">Nenhuma aula encontrada para os filtros atuais.</td></tr>`;
+    updateSortHeaders();
+    btnClearFilters.disabled = !(q || fm || fp || fs);
   }
 
-  const filterMateria = document.getElementById('filterMateria');
-  const filterProf = document.getElementById('filterProf');
+  let searchDebounce;
+  function debouncedRender(){
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(renderTable, 180);
+  }
+
   filterMateria.innerHTML = '<option value="">Todas as disciplinas</option>' + [...materiasSet].sort().map(m=>`<option value="${m}">${m}</option>`).join('');
   filterProf.innerHTML = '<option value="">Todos os professores</option>' + [...profsSet].sort().map(p=>`<option value="${p}">${p}</option>`).join('');
-  document.getElementById('search').value = '';
+  search.value = '';
+  filterStatus.value = '';
 
-  const search = document.getElementById('search');
-  search.oninput = renderTable;
+  sortSelect.value = sortKey + ':' + sortDir;
+  search.oninput = debouncedRender;
   filterMateria.onchange = renderTable;
   filterProf.onchange = renderTable;
+  filterStatus.onchange = renderTable;
+  sortSelect.onchange = () => {
+    const [key, dir] = sortSelect.value.split(':');
+    sortKey = key; sortDir = Number(dir);
+    renderTable();
+  };
+  btnClearFilters.onclick = () => {
+    search.value = ''; filterMateria.value = ''; filterProf.value = ''; filterStatus.value = '';
+    renderTable();
+  };
+  document.querySelectorAll('th.sortable').forEach(th=>{
+    th.addEventListener('click', () => {
+      const key = th.dataset.sort;
+      if(sortKey === key) sortDir *= -1;
+      else { sortKey = key; sortDir = 1; }
+      renderTable();
+    });
+  });
   renderTable();
 
   // ---------- Disciplinas ----------
