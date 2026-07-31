@@ -409,6 +409,7 @@
         <h2>Aulas canceladas por disciplina</h2>
         <span class="hint">Total de cancelamentos e professor responsável por matéria</span>
       </div>
+      <div class="chart-box" id="chartCancelados"></div>
       <div id="cancelList"></div>
     </div>
   </section>
@@ -620,6 +621,24 @@ function renderDashboard(data){
       if(a.prof) cancelMap[subj].profs.add(a.prof);
     });
     const entries = Object.entries(cancelMap).sort((a,b)=>b[1].count-a[1].count);
+
+    const chartBox = document.getElementById('chartCancelados');
+    if(entries.length){
+      const max = Math.max(1, ...entries.map(([,info])=>info.count));
+      const barRows = entries.map(([subj,info])=>`
+        <div class="hbar-row">
+          <span class="pname" title="${subj}">${subj}</span>
+          <div class="hbar-track"><div class="hbar-fill" style="width:${(info.count/max*100).toFixed(1)}%;background:${materiaColor(subj)}"></div></div>
+          <span class="pval">${info.count}</span>
+        </div>
+      `).join('');
+      chartBox.style.height = Math.max(90, entries.length*46+20) + 'px';
+      chartBox.innerHTML = `<div class="hbar-list">${barRows}</div>`;
+    } else {
+      chartBox.style.height = 'auto';
+      chartBox.innerHTML = '';
+    }
+
     const rows = entries.map(([subj,info])=>`
       <div class="cancel-row">
         <div class="cancel-main">
@@ -631,7 +650,7 @@ function renderDashboard(data){
       </div>
     `).join('');
     document.getElementById('cancelList').innerHTML = entries.length
-      ? `<div class="cancel-list">${rows}</div>`
+      ? `<div class="cancel-list" style="margin-top:16px">${rows}</div>`
       : '<p style="color:var(--text-faint);font-size:13px">Nenhuma aula cancelada até o momento.</p>';
   }
 
