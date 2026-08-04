@@ -24,6 +24,8 @@
     --impact-bg:#deefe4;
     --tech:#2461a8;
     --tech-bg:#dfe9f5;
+    --sonho:#9a6b00;
+    --sonho-bg:#faedcc;
     --font-body: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
     --font-display: "Arial Narrow", "Helvetica Neue Condensed", Impact, var(--font-body);
     --font-mono: "SF Mono", "Consolas", "Menlo", monospace;
@@ -47,17 +49,19 @@
       --impact:#7fd6a4;
       --tech-bg:#0f2740;
       --tech:#8bc0ec;
+      --sonho-bg:#3a2c05;
+      --sonho:#f0c15c;
     }
   }
   :root[data-theme="dark"]{
     --bg:#081722; --surface:#0f2735; --surface-2:#122e3f; --text:#e8eef1; --text-dim:#93aab8; --line:#1f3f52; --sand:#2a3b30;
     --crit-bg:#3a1a17; --crit:#ff8a7a; --women-bg:#3a1830; --women:#f3a3d4; --biz-bg:#382b0e; --biz:#f0c15c;
-    --impact-bg:#12301f; --impact:#7fd6a4; --tech-bg:#0f2740; --tech:#8bc0ec;
+    --impact-bg:#12301f; --impact:#7fd6a4; --tech-bg:#0f2740; --tech:#8bc0ec; --sonho-bg:#3a2c05; --sonho:#f0c15c;
   }
   :root[data-theme="light"]{
     --bg:#eef1ee; --surface:#ffffff; --surface-2:#e4e9e6; --text:#0e2431; --text-dim:#4c6272; --line:#c7d0cb; --sand:#e8e4d8;
     --crit-bg:#fbe4e1; --crit:#c8352c; --women-bg:#f8e2ef; --women:#a8377f; --biz-bg:#f7ead0; --biz:#a5720c;
-    --impact-bg:#deefe4; --impact:#2f7d55; --tech-bg:#dfe9f5; --tech:#2461a8;
+    --impact-bg:#deefe4; --impact:#2f7d55; --tech-bg:#dfe9f5; --tech:#2461a8; --sonho-bg:#faedcc; --sonho:#9a6b00;
   }
 
   *{box-sizing:border-box;}
@@ -424,8 +428,52 @@
   .badge-negocios{background:var(--biz-bg); color:var(--biz);}
   .badge-impacto{background:var(--impact-bg); color:var(--impact);}
   .badge-mulheres{background:var(--women-bg); color:var(--women);}
+  .badge-sonho{background:var(--sonho-bg); color:var(--sonho);}
   .badge-obrigatorio{background:var(--ink-900); color:#fff;}
   :root[data-theme="dark"] .badge-obrigatorio, @media (prefers-color-scheme:dark){.badge-obrigatorio{background:var(--accent); color:#1a0e08;}}
+
+  /* ---------- DREAM COMPANY RADAR ---------- */
+  .radar-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:14px;
+  }
+  .radar-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-left:4px solid var(--sonho);
+    border-radius:10px;
+    padding:16px;
+  }
+  .radar-card .radar-co{
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    font-weight:700;
+    color:var(--sonho);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    margin-bottom:6px;
+  }
+  .radar-card .radar-who{
+    font-weight:700;
+    font-size:.95rem;
+    margin-bottom:2px;
+  }
+  .radar-card .radar-role{
+    font-size:.82rem;
+    color:var(--text-dim);
+    margin-bottom:10px;
+  }
+  .radar-card .radar-talk{
+    font-size:.86rem;
+    line-height:1.4;
+    margin-bottom:6px;
+  }
+  .radar-card .radar-when{
+    font-family:var(--font-mono);
+    font-size:.78rem;
+    color:var(--text-dim);
+  }
 
   .conf-line{
     font-size:.82rem;
@@ -497,13 +545,13 @@
     <h1>Rio Innovation Week 2026</h1>
     <p class="hero-sub">04 a 07 de agosto · Armazéns e navios da Zona Portuária. Um roteiro só seu, para voltar desse evento com contatos novos, portfólio maior e a confirmação de que seu lugar no mercado está mais perto do que parece.</p>
     <div class="manifest-card">
-      <b>Para você, Marina:</b> profissional de marketing que gosta de criar conteúdo e busca um trabalho que também gere valor para a sociedade. Este roteiro cruza exatamente isso: marca, criação de conteúdo, carreira/recolocação e impacto social — direto do catálogo oficial de 1.400+ palestras do evento. Os cartões com o selo <span class="badge badge-obrigatorio" style="padding:2px 7px;">OBRIGATÓRIA</span> são os que mais valem sua energia. Sua experiência já vale muito — esse evento é para você provar isso, inclusive para si mesma. 💛
+      <b>Para você, Marina Farias:</b> Analista de Planejamento de TI Jr na Icatu Seguros, cursando Marketing (CST) na FACHA e Serviço Social na UFRJ, certificada em CRM e voluntária de conteúdo digital na ONG Espaço Logos — já produzindo vídeo, campanha e comunicação com propósito na prática. Este roteiro cruza tudo isso: marca, criação de conteúdo, carreira/recolocação e impacto social, direto do catálogo oficial de 1.400+ palestras do evento. Como você tem mira em <b>Globo</b> e <b>L'Oréal</b>, separei também um radar com quem dessas empresas vai estar no palco — veja a seção logo abaixo. Os cartões com o selo <span class="badge badge-obrigatorio" style="padding:2px 7px;">OBRIGATÓRIA</span> são os que mais valem sua energia. Sua experiência já vale muito — esse evento é para você provar isso, inclusive para si mesma. 💛
     </div>
     <div class="stat-row">
       <div class="stat"><div class="n" id="stat-total">–</div><div class="l">Palestras no roteiro</div></div>
       <div class="stat"><div class="n">4</div><div class="l">Dias de evento</div></div>
       <div class="stat"><div class="n" id="stat-obrig">–</div><div class="l">Obrigatórias</div></div>
-      <div class="stat"><div class="n" id="stat-mulheres">–</div><div class="l">Com palestrantes mulheres</div></div>
+      <div class="stat"><div class="n" id="stat-sonho">–</div><div class="l">Com gente da Globo/L'Oréal</div></div>
     </div>
   </div>
 
@@ -513,6 +561,14 @@
       <div class="section-note">Se o tempo apertar, é nelas que você embarca.</div>
     </div>
     <div class="top4-grid" id="top4"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div class="section-title">🎯 Radar Globo &amp; L'Oréal</div>
+      <div class="section-note">Gente dessas duas empresas vai estar no palco — sua chance de puxar conversa de verdade</div>
+    </div>
+    <div class="radar-grid" id="radar"></div>
   </section>
 
   <section>
@@ -536,6 +592,7 @@
       <span class="chip" data-filter="negocios">📣 Marketing & Marca</span>
       <span class="chip" data-filter="impacto">🌱 Impacto social</span>
       <span class="chip" data-filter="mulheres">👩 Palestrantes mulheres</span>
+      <span class="chip" data-filter="sonho">🎯 Globo & L'Oréal</span>
     </div>
 
     <div class="day-tabs" id="dayTabs"></div>
@@ -551,6 +608,7 @@
       <div class="tip"><h5>🤝 Networking com intenção</h5><p>Leve cartão de visita (ou QR code do LinkedIn) e uma pergunta pronta: "Como foi o primeiro projeto de vocês nessa área?". Conecte em até 48h citando um ponto específico da fala — recrutador lembra de quem foi específico.</p></div>
       <div class="tip"><h5>🚀 Trate a trilha de carreira como prioridade, não like</h5><p>"Futuro do Trabalho" e "Rede Mulher Empreendedora" reúnem quem contrata, quem lidera e quem já passou pela mesma transição que você está vivendo agora. Essa trilha vale tanto quanto qualquer entrevista.</p></div>
       <div class="tip"><h5>🌱 Não abra mão do impacto social</h5><p>Comunicação com propósito é o cruzamento exato entre o que você sabe fazer e o que você quer que seu trabalho signifique. Fica de olho nas vagas e parcerias que aparecerem nessas rodas.</p></div>
+      <div class="tip"><h5>🎯 Prepare a abordagem pra Globo e L'Oréal</h5><p>Antes do evento, treine uma frase de 15 segundos sobre você (cargo atual, o que estuda, o que já produz na ONG). Use o Radar acima pra saber exatamente onde encontrar cada pessoa dessas empresas.</p></div>
     </div>
     <div class="legend">
       <span class="badge badge-critico">🚀 Carreira</span>
@@ -558,6 +616,7 @@
       <span class="badge badge-negocios">📣 Marketing</span>
       <span class="badge badge-impacto">🌱 Impacto</span>
       <span class="badge badge-mulheres">👩 Mulheres</span>
+      <span class="badge badge-sonho">🎯 Globo/L'Oréal</span>
       <span class="badge badge-obrigatorio">Obrigatória</span>
     </div>
   </section>
@@ -574,6 +633,7 @@ const EVENTS = [
 {day:1, time:"11:00", title:"Experience Economy: Valor real das experiências — Como experiências geram valor para marcas e negócios", conf:"Nexus", tipo:"Painel", speakers:["Raphael Pontual","Heloísa Santana","Quércia Andrade","Bruno Brum"], venue:"Kobra", palco:"Palco 32", cat:"negocios", tags:[]},
 {day:1, time:"12:00", title:"Elas Inspiram: Ciência e Comunicação com Impacto", conf:"Inovação Social", tipo:"Painel", speakers:["Josina Oliveira do Nascimento","Viviane Japiassú Viana","Caroline Oliveira do Carmo"], venue:"Kobra", palco:"Palco 28", cat:"impacto", tags:["mulheres"], why:"Comunicação a serviço de causas reais — o cruzamento exato entre o seu ofício e o que você quer que ele signifique."},
 {day:1, time:"13:00", title:"O que nos define como humanos diante da IA?", conf:"Nexus", tipo:"Painel", speakers:["Tatiana Roque","Ailton Krenak"], venue:"Kobra", palco:"Palco 32", cat:"negocios", tags:[]},
+{day:1, time:"14:00", title:"O novo mapa da inovação", conf:"Nexus", tipo:"Painel", speakers:["Manuel Falcão","Ricardo Al Makul","Mariana Castro"], venue:"Kobra", palco:"Palco 32", cat:"negocios", tags:["sonho","recomendado"], why:"Manuel Falcão é Diretor de Marca e Comunicação da Globo — empresa que você tem no radar. Vale chegar com uma pergunta pronta.", sonhoInfo:{nome:"Manuel Falcão", empresa:"Globo", cargo:"Diretor de Marca e Comunicação"}},
 {day:1, time:"15:00", title:"Construindo Produtos para a Geração Z", conf:"Nexus", tipo:"Painel", speakers:["Marina Motomura","Juliana Proserpio","Alê Blanco","Thiago Cruz"], venue:"Kobra", palco:"Palco 32", cat:"negocios", tags:["mulheres"]},
 {day:1, time:"16:00", title:"Quando Marcas Viram Cultura: o que festivais, plataformas e IA ensinam sobre relevância", conf:"Nexus", tipo:"Painel", speakers:["Renata Guaraná","Suzana Machado","Livia Marquez"], venue:"Kobra", palco:"Palco 32", cat:"negocios", tags:["mulheres","recomendado"], why:"Como marcas constroem relevância cultural de verdade — pensamento estratégico direto pro seu portfólio."},
 {day:1, time:"17:00", title:"Reputação, Influência e Narrativas no Mercado de Comunicação", conf:"Music Forward", tipo:"Painel", speakers:["Michelle Andrade","Ágata Cunha"], venue:"Armazém 1 A · RIW Pop Tech (Cine)", palco:"Palco 03", cat:"ia", tags:["mulheres","recomendado"], why:"Bastidor de quem constrói reputação e narrativa pra viver disso — panorama real do mercado que você quer entrar."},
@@ -597,18 +657,22 @@ const EVENTS = [
 {day:3, time:"11:30", title:"O Linkedin Mudou. E aí?", conf:"Nexus", tipo:"Painel", speakers:["Carolina Dostal"], venue:"Kobra", palco:"Palco 32", cat:"critico", tags:["mulheres","recomendado"], why:"Seu LinkedIn é a vitrine que os recrutadores veem primeiro — saia daqui com 2-3 ajustes práticos pro seu perfil."},
 {day:3, time:"12:30", title:"Uso de IA nas campanhas de Marketing", conf:"Nexus", tipo:"Painel", speakers:["Beto Weisser","João Teixeira de Carvalho","Amanda Graciano"], venue:"Kobra", palco:"Palco 32", cat:"negocios", tags:["obrig","mulheres"], why:"Skill prática e procurada agora em toda vaga de marketing — anote os cases pra citar em entrevista."},
 {day:3, time:"12:45", title:"O Poder das Redes: Como Conexões Mudam Negócios e Carreiras", conf:"Rede Mulher Empreendedora", tipo:"Palestra", speakers:["Ana Fontes"], venue:"Kobra", palco:"Palco 33", cat:"critico", tags:["obrig"], why:"Networking é a ferramenta nº 1 de recolocação — essa palestra é praticamente um manual de como fazer isso bem."},
+{day:3, time:"13:30", title:"Do canal ao clique: a reinvenção do consumo de mídia", conf:"Nexus", tipo:"Painel", speakers:["Luis Bonilauri","Renata Fernandes","Juliana Oliveira"], venue:"Kobra", palco:"Palco 32", cat:"negocios", tags:["sonho","mulheres","recomendado"], why:"Renata Fernandes é Diretora de produtos publicitários digitais da Globo — panorama de mídia contado por quem decide na empresa dos seus sonhos.", sonhoInfo:{nome:"Renata Fernandes", empresa:"Globo", cargo:"Diretora de Produtos Publicitários Digitais"}},
 {day:3, time:"13:30", title:"Comunidade é o novo alcance", conf:"Creator Economy by CoCreators", tipo:"Palestra", speakers:["Ingrid Abdo"], venue:"Kobra", palco:"Palco 31", cat:"ia", tags:["mulheres"]},
 {day:3, time:"13:45", title:"Trabalho S/A: carreira, liderança e o que realmente importa", conf:"Futuro do Trabalho", tipo:"Palestra", speakers:["Stela Campos"], venue:"Kobra", palco:"Palco 30", cat:"critico", tags:["recomendado"]},
 {day:3, time:"14:30", title:"Inovação a partir dos territórios: conhecimento, comunicação e cultura para a transformação social", conf:"Impact for Change", tipo:"Painel", speakers:["Suellen Souza","Monique Silva","Jessica Lene da Silva Santos"], venue:"Kobra", palco:"Palco 26", cat:"impacto", tags:["mulheres"]},
 {day:3, time:"15:30", title:"Criadores, código e IA: a nova economia da influência digital", conf:"Impact for Change", tipo:"Painel", speakers:["Antônio Miranda","Tatiana Roque","Francisco Figueiredo","Matheus Sodré"], venue:"Kobra", palco:"Palco 26", cat:"ia", tags:[]},
 {day:3, time:"16:30", title:"Mulheres Inovadoras: quem está construindo o futuro?", conf:"Impact for Change", tipo:"Painel", speakers:["Julia Boardman Cavalcanti","Vanessa Victorino","Simone Vasconcelos","Georgia Gomes","Rafaela Di Sabato Guerrante"], venue:"Kobra", palco:"Palco 26", cat:"critico", tags:["mulheres","recomendado"]},
+{day:3, time:"17:00", title:"Liderança Plural: Quem Vai Liderar as Empresas da Próxima Década?", conf:"Rede Mulher Empreendedora", tipo:"Painel", speakers:["Vânia Neves","Cris Sanches","Silvana Bahia","Anne Jacobson"], venue:"Kobra", palco:"Palco 33", cat:"critico", tags:["sonho","mulheres","recomendado"], why:"Anne Jacobson é Diretora da L'Oréal — ouça de perto como ela enxerga liderança nos próximos 10 anos.", sonhoInfo:{nome:"Anne Jacobson", empresa:"L'Oréal", cargo:"Diretora"}},
 {day:3, time:"18:00", title:"Recomeçar é Estratégia: Como Navegar a Transição de Carreira em um Mundo em Transformação", conf:"Rede Mulher Empreendedora", tipo:"Palestra", speakers:["Flávia Baptistini"], venue:"Kobra", palco:"Palco 33", cat:"critico", tags:["obrig","mulheres"], why:"Este é o seu momento agora — recomeço tratado como estratégia, não como fracasso. Vá com um caderno pra essa."},
+{day:3, time:"18:15", title:"Da janela vertical à era do pertencimento: os bastidores da construção do GloboPop", conf:"RIW Talks", tipo:"Palestra", speakers:["Rodolfo Bastos"], venue:"Kobra", palco:"Palco 29", cat:"ia", tags:["sonho","recomendado"], why:"Rodolfo Bastos é Diretor de Produtos Digitais da Globo — bastidor de produto e conteúdo direto de quem constrói.", sonhoInfo:{nome:"Rodolfo Bastos", empresa:"Globo", cargo:"Diretor de Produtos Digitais"}},
 
 // ---------------- 07/08 SEXTA ----------------
 {day:4, time:"10:30", title:"IA e Emprego: O que a tecnologia não decide por nós", conf:"Futuro do Trabalho", tipo:"Painel", speakers:["Daniel Gleizer","Iona Szkurnik"], venue:"Kobra", palco:"Palco 30", cat:"critico", tags:["mulheres","recomendado"]},
 {day:4, time:"11:15", title:"A nova disputa por confiança: quem vira talento, liderança e referência no futuro do trabalho?", conf:"Futuro do Trabalho", tipo:"Painel", speakers:["David A. Wilson","Helena Klang","Clayton Nascimento"], venue:"Kobra", palco:"Palco 30", cat:"critico", tags:[]},
 {day:4, time:"12:00", title:"Potência Feminina: Liderando a Economia do Futuro", conf:"Grupo Mulheres do Brasil", tipo:"Painel", speakers:["Juliana Rosa","Andreza Machado","Carolina Abreu","Ana Fontes"], venue:"Kobra", palco:"Palco 33", cat:"critico", tags:["mulheres","recomendado"]},
 {day:4, time:"13:45", title:"Todo profissional virou creator?", conf:"Futuro do Trabalho", tipo:"Painel", speakers:["Bruna Infurna","Iona Szkurnik"], venue:"Kobra", palco:"Palco 30", cat:"ia", tags:["obrig","mulheres"], why:"A validação de que criar conteúdo é, sim, um caminho de carreira sério — leve isso como argumento pra próxima entrevista."},
+{day:4, time:"14:00", title:"Talk Show - Conexão que Transforma", conf:"Humanare by Adriana Schneider", tipo:"Palestra", speakers:["Julissa S. Germosén","Julian Pistone","Helen Pedroso"], venue:"Kobra", palco:"Palco 28", cat:"impacto", tags:["sonho","mulheres","recomendado"], why:"Helen Pedroso é Diretora de Responsabilidade Corporativa e Direitos Humanos do L'Oréal Group — o cruzamento perfeito entre marketing de marca e impacto social que você busca.", sonhoInfo:{nome:"Helen Pedroso", empresa:"L'Oréal Group", cargo:"Diretora de Responsabilidade Corporativa e Direitos Humanos"}},
 {day:4, time:"14:30", title:"Como continuar relevante agora?", conf:"Futuro do Trabalho", tipo:"Painel", speakers:["Danilo Garbazza Vieira","Rachel Garcia","Heloisa Gomyde","Aspen Andersen"], venue:"Kobra", palco:"Palco 30", cat:"critico", tags:["mulheres"]},
 {day:4, time:"16:15", title:"O que as marcas ainda não entenderam sobre creators", conf:"Creator Economy by CoCreators", tipo:"Palestra", speakers:["Giovanna Ferrarezi","Raphaella Martins","Matheus Amaral"], venue:"Kobra", palco:"Palco 31", cat:"negocios", tags:["mulheres","recomendado"]},
 {day:4, time:"17:30", title:"O seu trabalho vai existir daqui a cinco anos?", conf:"Futuro do Trabalho", tipo:"Palestra", speakers:["Michelle Schneider"], venue:"Kobra", palco:"Palco 30", cat:"critico", tags:["mulheres","recomendado"]},
@@ -641,6 +705,7 @@ function venueLine(ev){
 function badgesFor(ev){
   let b = [`<span class="badge badge-${ev.cat}">${CAT_LABEL[ev.cat]}</span>`];
   if(ev.tags.includes("obrig")) b.push(`<span class="badge badge-obrigatorio">Obrigatória</span>`);
+  if(ev.tags.includes("sonho")) b.push(`<span class="badge badge-sonho">🎯 Globo/L'Oréal</span>`);
   if(ev.tags.includes("mulheres")) b.push(`<span class="badge badge-mulheres">👩 Mulheres</span>`);
   return b.join("");
 }
@@ -648,6 +713,7 @@ function matchesFilter(ev){
   if(activeFilter==="all") return true;
   if(activeFilter==="obrig") return ev.tags.includes("obrig");
   if(activeFilter==="mulheres") return ev.tags.includes("mulheres");
+  if(activeFilter==="sonho") return ev.tags.includes("sonho");
   return ev.cat===activeFilter;
 }
 function matchesSearch(ev){
@@ -681,6 +747,19 @@ function renderTop4(){
         <span>${ev.conf}</span>
         <span>📍 ${ev.venue}${ev.palco? " · "+ev.palco:""}</span>
       </div>
+    </div>
+  `).join("");
+}
+
+function renderRadar(){
+  const sonhos = EVENTS.filter(e=>e.tags.includes("sonho")).sort((a,b)=> a.day-b.day || a.time.localeCompare(b.time));
+  document.getElementById("radar").innerHTML = sonhos.map(ev=>`
+    <div class="radar-card">
+      <div class="radar-co">🎯 ${ev.sonhoInfo.empresa}</div>
+      <div class="radar-who">${ev.sonhoInfo.nome}</div>
+      <div class="radar-role">${ev.sonhoInfo.cargo}</div>
+      <div class="radar-talk">${ev.title}</div>
+      <div class="radar-when">${DAY_LABELS[ev.day].d} · ${ev.time} · ${ev.venue}${ev.palco? " · "+ev.palco:""}</div>
     </div>
   `).join("");
 }
@@ -771,9 +850,10 @@ searchClear.addEventListener("click", ()=>{
 
 document.getElementById("stat-total").textContent = EVENTS.length;
 document.getElementById("stat-obrig").textContent = EVENTS.filter(e=>e.tags.includes("obrig")).length;
-document.getElementById("stat-mulheres").textContent = EVENTS.filter(e=>e.tags.includes("mulheres")).length;
+document.getElementById("stat-sonho").textContent = EVENTS.filter(e=>e.tags.includes("sonho")).length;
 
 renderTop4();
+renderRadar();
 renderDayTabs();
 render();
 </script>
