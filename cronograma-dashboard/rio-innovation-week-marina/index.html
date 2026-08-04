@@ -1,0 +1,779 @@
+<title>Rio Innovation Week 2026 — Manifesto da Marina</title>
+<style>
+  :root{
+    --ink-900:#0a1e2b;
+    --ink-700:#123246;
+    --ink-500:#365065;
+    --accent:#ff3d78;
+    --accent-dim:#c11559;
+    --teal:#2a9d8f;
+    --sand:#e8e4d8;
+    --bg:#eef1ee;
+    --surface:#ffffff;
+    --surface-2:#e4e9e6;
+    --text:#0e2431;
+    --text-dim:#4c6272;
+    --line:#c7d0cb;
+    --crit:#c8352c;
+    --crit-bg:#fbe4e1;
+    --women:#a8377f;
+    --women-bg:#f8e2ef;
+    --biz:#a5720c;
+    --biz-bg:#f7ead0;
+    --impact:#2f7d55;
+    --impact-bg:#deefe4;
+    --tech:#2461a8;
+    --tech-bg:#dfe9f5;
+    --font-body: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    --font-display: "Arial Narrow", "Helvetica Neue Condensed", Impact, var(--font-body);
+    --font-mono: "SF Mono", "Consolas", "Menlo", monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#081722;
+      --surface:#0f2735;
+      --surface-2:#122e3f;
+      --text:#e8eef1;
+      --text-dim:#93aab8;
+      --line:#1f3f52;
+      --sand:#2a3b30;
+      --crit-bg:#3a1a17;
+      --crit:#ff8a7a;
+      --women-bg:#3a1830;
+      --women:#f3a3d4;
+      --biz-bg:#382b0e;
+      --biz:#f0c15c;
+      --impact-bg:#12301f;
+      --impact:#7fd6a4;
+      --tech-bg:#0f2740;
+      --tech:#8bc0ec;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#081722; --surface:#0f2735; --surface-2:#122e3f; --text:#e8eef1; --text-dim:#93aab8; --line:#1f3f52; --sand:#2a3b30;
+    --crit-bg:#3a1a17; --crit:#ff8a7a; --women-bg:#3a1830; --women:#f3a3d4; --biz-bg:#382b0e; --biz:#f0c15c;
+    --impact-bg:#12301f; --impact:#7fd6a4; --tech-bg:#0f2740; --tech:#8bc0ec;
+  }
+  :root[data-theme="light"]{
+    --bg:#eef1ee; --surface:#ffffff; --surface-2:#e4e9e6; --text:#0e2431; --text-dim:#4c6272; --line:#c7d0cb; --sand:#e8e4d8;
+    --crit-bg:#fbe4e1; --crit:#c8352c; --women-bg:#f8e2ef; --women:#a8377f; --biz-bg:#f7ead0; --biz:#a5720c;
+    --impact-bg:#deefe4; --impact:#2f7d55; --tech-bg:#dfe9f5; --tech:#2461a8;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px 80px;}
+
+  /* ---------- HERO / MANIFEST HEADER ---------- */
+  .hero{
+    background:
+      repeating-linear-gradient(135deg, rgba(255,107,53,0.06) 0 2px, transparent 2px 22px),
+      linear-gradient(180deg, var(--ink-900), var(--ink-700));
+    color:#f4f1e9;
+    padding:44px 28px 30px;
+    margin:0 0 26px;
+    border-radius:0 0 18px 18px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:0; height:10px;
+    background:repeating-linear-gradient(90deg, var(--accent) 0 26px, #f4f1e9 26px 30px);
+    opacity:.85;
+  }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:flex;
+    gap:10px;
+    align-items:center;
+    margin-bottom:14px;
+  }
+  .eyebrow .tag{
+    border:1px solid rgba(255,107,53,.55);
+    padding:2px 8px;
+    border-radius:2px;
+  }
+  h1{
+    font-family:var(--font-display);
+    font-stretch:condensed;
+    font-weight:800;
+    font-size:clamp(2rem, 5vw, 3.1rem);
+    letter-spacing:.01em;
+    text-transform:uppercase;
+    margin:0 0 6px;
+    text-wrap:balance;
+    line-height:1.02;
+  }
+  .hero-sub{
+    color:#c9d6d2;
+    font-size:1.02rem;
+    max-width:640px;
+    margin-bottom:22px;
+  }
+  .manifest-card{
+    background:rgba(244,241,233,.06);
+    border:1px solid rgba(244,241,233,.18);
+    border-left:4px solid var(--accent);
+    border-radius:8px;
+    padding:16px 18px;
+    max-width:720px;
+    font-size:.94rem;
+    color:#dfe7e3;
+  }
+  .manifest-card b{color:#fff;}
+
+  .stat-row{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-top:22px;
+  }
+  .stat{
+    background:rgba(244,241,233,.05);
+    border:1px solid rgba(244,241,233,.15);
+    border-radius:8px;
+    padding:10px 16px;
+    font-family:var(--font-mono);
+    min-width:110px;
+  }
+  .stat .n{font-size:1.4rem;font-weight:700;color:var(--accent);}
+  .stat .l{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:#a9b8b3;}
+
+  /* ---------- BOARDING PASS: TOP 4 ---------- */
+  section{margin-bottom:38px;}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:12px;
+    border-bottom:2px solid var(--line);
+    padding-bottom:8px;
+    margin-bottom:16px;
+    flex-wrap:wrap;
+  }
+  .section-title{
+    font-family:var(--font-display);
+    font-stretch:condensed;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+    font-size:1.3rem;
+  }
+  .section-note{color:var(--text-dim); font-size:.85rem;}
+
+  .top4-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+    gap:14px;
+  }
+  .boarding{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    position:relative;
+    padding:16px 16px 14px;
+    box-shadow:0 1px 0 var(--line);
+  }
+  .boarding::before{
+    content:"";
+    position:absolute; left:0; top:14px; bottom:14px; width:4px;
+    background:var(--accent);
+    border-radius:2px;
+  }
+  .boarding .day-chip{
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    color:var(--accent-dim);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    margin-bottom:6px;
+  }
+  .boarding h4{
+    margin:0 0 8px;
+    font-size:1.02rem;
+    line-height:1.3;
+  }
+  .boarding .meta{
+    font-family:var(--font-mono);
+    font-size:.78rem;
+    color:var(--text-dim);
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+
+  /* ---------- SEARCH ---------- */
+  .search-row{
+    display:flex;
+    gap:10px;
+    margin-bottom:14px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .search-box{
+    position:relative;
+    flex:1 1 320px;
+    min-width:240px;
+  }
+  .search-box input{
+    width:100%;
+    font-family:var(--font-body);
+    font-size:.92rem;
+    padding:11px 40px 11px 38px;
+    border-radius:8px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    color:var(--text);
+  }
+  .search-box input:focus{
+    outline:2px solid var(--accent);
+    outline-offset:-1px;
+  }
+  .search-box .icon{
+    position:absolute; left:12px; top:50%; transform:translateY(-50%);
+    color:var(--text-dim);
+    font-size:.95rem;
+    pointer-events:none;
+  }
+  .search-box .clear{
+    position:absolute; right:8px; top:50%; transform:translateY(-50%);
+    background:none; border:none; cursor:pointer;
+    color:var(--text-dim);
+    font-size:.85rem;
+    padding:4px 8px;
+    border-radius:6px;
+    display:none;
+  }
+  .search-box .clear:hover{background:var(--surface-2); color:var(--text);}
+  .search-box.has-value .clear{display:block;}
+  .search-hint{
+    font-family:var(--font-mono);
+    font-size:.78rem;
+    color:var(--text-dim);
+  }
+  .search-results-label{
+    font-family:var(--font-mono);
+    font-size:.8rem;
+    color:var(--text-dim);
+    margin-bottom:12px;
+  }
+  .search-day-tag{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    font-weight:700;
+    color:var(--accent-dim);
+    background:var(--surface-2);
+    border-radius:4px;
+    padding:2px 8px;
+    margin-right:8px;
+  }
+  :root[data-theme="dark"] .search-day-tag, @media (prefers-color-scheme:dark){.search-day-tag{color:var(--accent);}}
+  .no-results{
+    text-align:center;
+    padding:40px 20px;
+    color:var(--text-dim);
+    font-size:.92rem;
+  }
+  .flat-list{display:flex; flex-direction:column; gap:12px;}
+
+  /* ---------- FILTERS ---------- */
+  .filters{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+  }
+  .chip{
+    font-family:var(--font-mono);
+    font-size:.76rem;
+    letter-spacing:.02em;
+    padding:7px 13px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    color:var(--text-dim);
+    cursor:pointer;
+    user-select:none;
+    transition:all .15s ease;
+  }
+  .chip:hover{border-color:var(--accent);}
+  .chip.active{
+    background:var(--ink-900);
+    border-color:var(--ink-900);
+    color:#fff;
+  }
+  :root[data-theme="dark"] .chip.active, @media (prefers-color-scheme:dark){.chip.active{background:var(--accent); border-color:var(--accent); color:#1a0e08;}}
+
+  /* ---------- DAY TABS ---------- */
+  .day-tabs{
+    display:flex;
+    gap:6px;
+    margin-bottom:20px;
+    border-bottom:1px solid var(--line);
+    flex-wrap:wrap;
+  }
+  .day-tab{
+    font-family:var(--font-mono);
+    font-size:.85rem;
+    padding:10px 16px 12px;
+    cursor:pointer;
+    color:var(--text-dim);
+    border-bottom:3px solid transparent;
+    text-transform:uppercase;
+    letter-spacing:.03em;
+  }
+  .day-tab .wk{display:block;font-size:.68rem;opacity:.75;font-family:var(--font-body);text-transform:none;letter-spacing:0;}
+  .day-tab.active{
+    color:var(--text);
+    border-bottom-color:var(--accent);
+    font-weight:700;
+  }
+  .day-tab .count{
+    display:inline-block;
+    margin-left:6px;
+    background:var(--surface-2);
+    color:var(--text-dim);
+    border-radius:999px;
+    padding:1px 7px;
+    font-size:.72rem;
+  }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{position:relative; padding-left:86px;}
+  .timeline::before{
+    content:"";
+    position:absolute; left:70px; top:6px; bottom:6px; width:2px;
+    background:var(--line);
+  }
+  .slot{position:relative; margin-bottom:16px;}
+  .slot-time{
+    position:absolute; left:-86px; top:14px; width:64px;
+    text-align:right;
+    font-family:var(--font-mono);
+    font-weight:700;
+    font-size:.92rem;
+    color:var(--text);
+  }
+  .slot-time::after{
+    content:"";
+    position:absolute; right:-24px; top:5px;
+    width:9px; height:9px; border-radius:50%;
+    background:var(--surface);
+    border:2px solid var(--accent);
+  }
+
+  .event-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:14px 16px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    position:relative;
+    overflow:hidden;
+  }
+  .event-card.is-hidden{display:none;}
+  .cat-stripe{
+    position:absolute; left:0; top:0; bottom:0; width:5px;
+  }
+  .cat-critico{background:var(--crit);}
+  .cat-ia{background:var(--tech);}
+  .cat-negocios{background:var(--biz);}
+  .cat-impacto{background:var(--impact);}
+
+  .card-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:flex-start;
+    flex-wrap:wrap;
+  }
+  .card-title{
+    font-size:1rem;
+    font-weight:700;
+    line-height:1.35;
+    max-width:640px;
+  }
+  .badges{display:flex; gap:6px; flex-wrap:wrap; flex-shrink:0;}
+  .badge{
+    font-family:var(--font-mono);
+    font-size:.68rem;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    padding:3px 9px;
+    border-radius:4px;
+    white-space:nowrap;
+    font-weight:700;
+  }
+  .badge-critico{background:var(--crit-bg); color:var(--crit);}
+  .badge-ia{background:var(--tech-bg); color:var(--tech);}
+  .badge-negocios{background:var(--biz-bg); color:var(--biz);}
+  .badge-impacto{background:var(--impact-bg); color:var(--impact);}
+  .badge-mulheres{background:var(--women-bg); color:var(--women);}
+  .badge-obrigatorio{background:var(--ink-900); color:#fff;}
+  :root[data-theme="dark"] .badge-obrigatorio, @media (prefers-color-scheme:dark){.badge-obrigatorio{background:var(--accent); color:#1a0e08;}}
+
+  .conf-line{
+    font-size:.82rem;
+    color:var(--text-dim);
+    font-style:italic;
+  }
+
+  .card-meta{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    font-size:.85rem;
+    color:var(--text-dim);
+  }
+  .card-meta strong{color:var(--text); font-weight:600;}
+  .card-meta .mono{font-family:var(--font-mono);}
+
+  .why{
+    font-size:.85rem;
+    background:var(--surface-2);
+    border-radius:6px;
+    padding:8px 12px;
+    color:var(--text);
+  }
+  .why b{color:var(--accent-dim);}
+  :root[data-theme="dark"] .why b, @media (prefers-color-scheme:dark){.why b{color:var(--accent);}}
+
+  .no-venue{color:var(--text-dim); font-style:italic; font-size:.8rem;}
+
+  /* ---------- TIPS ---------- */
+  .tips-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:14px;
+  }
+  .tip{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-top:3px solid var(--accent);
+    border-radius:8px;
+    padding:16px;
+  }
+  .tip h5{margin:0 0 6px; font-size:.95rem;}
+  .tip p{margin:0; font-size:.86rem; color:var(--text-dim);}
+
+  .legend{
+    display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;
+  }
+
+  footer{
+    text-align:center;
+    color:var(--text-dim);
+    font-size:.82rem;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+  }
+
+  @media (max-width:640px){
+    .timeline{padding-left:64px;}
+    .timeline::before{left:50px;}
+    .slot-time{left:-64px; width:46px; font-size:.8rem;}
+    .slot-time::after{right:-17px;}
+  }
+</style>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow"><span class="tag">MANIFESTO DE EMBARQUE</span><span>Zona Portuária · Rio de Janeiro</span></div>
+    <h1>Rio Innovation Week 2026</h1>
+    <p class="hero-sub">04 a 07 de agosto · Armazéns e navios da Zona Portuária. Um roteiro só seu, para voltar desse evento com contatos novos, portfólio maior e a confirmação de que seu lugar no mercado está mais perto do que parece.</p>
+    <div class="manifest-card">
+      <b>Para você, Marina:</b> profissional de marketing que gosta de criar conteúdo e busca um trabalho que também gere valor para a sociedade. Este roteiro cruza exatamente isso: marca, criação de conteúdo, carreira/recolocação e impacto social — direto do catálogo oficial de 1.400+ palestras do evento. Os cartões com o selo <span class="badge badge-obrigatorio" style="padding:2px 7px;">OBRIGATÓRIA</span> são os que mais valem sua energia. Sua experiência já vale muito — esse evento é para você provar isso, inclusive para si mesma. 💛
+    </div>
+    <div class="stat-row">
+      <div class="stat"><div class="n" id="stat-total">–</div><div class="l">Palestras no roteiro</div></div>
+      <div class="stat"><div class="n">4</div><div class="l">Dias de evento</div></div>
+      <div class="stat"><div class="n" id="stat-obrig">–</div><div class="l">Obrigatórias</div></div>
+      <div class="stat"><div class="n" id="stat-mulheres">–</div><div class="l">Com palestrantes mulheres</div></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <div class="section-title">⭐ Passagem confirmada — as 5 que vão virar sua bússola</div>
+      <div class="section-note">Se o tempo apertar, é nelas que você embarca.</div>
+    </div>
+    <div class="top4-grid" id="top4"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div class="section-title">🗂️ Roteiro completo por dia</div>
+      <div class="section-note">Clique nos filtros para isolar uma trilha</div>
+    </div>
+    <div class="search-row">
+      <div class="search-box" id="searchBox">
+        <span class="icon">🔎</span>
+        <input type="text" id="searchInput" placeholder="Buscar por título, palestrante, trilha ou local (ex: Kobra, creator, Ana Fontes)…" autocomplete="off">
+        <button class="clear" id="searchClear" type="button" aria-label="Limpar busca">✕</button>
+      </div>
+      <span class="search-hint">Busca em todos os dias ao mesmo tempo</span>
+    </div>
+    <div class="filters" id="filters">
+      <span class="chip active" data-filter="all">Todas</span>
+      <span class="chip" data-filter="obrig">🔴 Obrigatórias</span>
+      <span class="chip" data-filter="critico">🚀 Carreira & Recolocação</span>
+      <span class="chip" data-filter="ia">🎥 Criação de Conteúdo</span>
+      <span class="chip" data-filter="negocios">📣 Marketing & Marca</span>
+      <span class="chip" data-filter="impacto">🌱 Impacto social</span>
+      <span class="chip" data-filter="mulheres">👩 Palestrantes mulheres</span>
+    </div>
+
+    <div class="day-tabs" id="dayTabs"></div>
+    <div id="timelines"></div>
+  </section>
+
+  <section>
+    <div class="section-head"><div class="section-title">🧭 Como aproveitar ao máximo</div></div>
+    <div class="tips-grid">
+      <div class="tip"><h5>📝 Ancore nas obrigatórias</h5><p>São as 5 mais alinhadas com marketing + conteúdo + carreira. Reserve os horários com 30 min de antecedência e sente na frente — é ali que rola a conversa depois.</p></div>
+      <div class="tip"><h5>🎒 Leve seu portfólio no bolso</h5><p>Link do Instagram, Behance ou um PDF com 3 peças suas no celular. "Recomeçar é Estratégia" e "Todo profissional virou creator?" são ótimos gatilhos para puxar assunto e já deixar sua referência.</p></div>
+      <div class="tip"><h5>👥 Busque as palestrantes mulheres</h5><p>Boa parte deste roteiro tem mulheres em posições de marca, conteúdo e liderança — cartões com o selo 👩. Prepare 1-2 perguntas genuínas e puxe conversa no intervalo.</p></div>
+      <div class="tip"><h5>🤝 Networking com intenção</h5><p>Leve cartão de visita (ou QR code do LinkedIn) e uma pergunta pronta: "Como foi o primeiro projeto de vocês nessa área?". Conecte em até 48h citando um ponto específico da fala — recrutador lembra de quem foi específico.</p></div>
+      <div class="tip"><h5>🚀 Trate a trilha de carreira como prioridade, não like</h5><p>"Futuro do Trabalho" e "Rede Mulher Empreendedora" reúnem quem contrata, quem lidera e quem já passou pela mesma transição que você está vivendo agora. Essa trilha vale tanto quanto qualquer entrevista.</p></div>
+      <div class="tip"><h5>🌱 Não abra mão do impacto social</h5><p>Comunicação com propósito é o cruzamento exato entre o que você sabe fazer e o que você quer que seu trabalho signifique. Fica de olho nas vagas e parcerias que aparecerem nessas rodas.</p></div>
+    </div>
+    <div class="legend">
+      <span class="badge badge-critico">🚀 Carreira</span>
+      <span class="badge badge-ia">🎥 Conteúdo</span>
+      <span class="badge badge-negocios">📣 Marketing</span>
+      <span class="badge badge-impacto">🌱 Impacto</span>
+      <span class="badge badge-mulheres">👩 Mulheres</span>
+      <span class="badge badge-obrigatorio">Obrigatória</span>
+    </div>
+  </section>
+
+  <footer>
+    <p>Guia construído a partir do catálogo oficial da Rio Innovation Week 2026, cruzado com o que faz sentido pra você: marca, conteúdo, carreira e impacto social.</p>
+    <p style="margin-top:8px; font-style:italic;">Você não está atrasada. Você está se preparando direito. Boa viagem pela Zona Portuária. 💛🚢</p>
+  </footer>
+</div>
+
+<script>
+const EVENTS = [
+// ---------------- 04/08 TERÇA ----------------
+{day:1, time:"11:00", title:"Experience Economy: Valor real das experiências — Como experiências geram valor para marcas e negócios", conf:"Nexus", tipo:"Painel", speakers:["Raphael Pontual","Heloísa Santana","Quércia Andrade","Bruno Brum"], venue:"Kobra", palco:"Palco 32", cat:"negocios", tags:[]},
+{day:1, time:"12:00", title:"Elas Inspiram: Ciência e Comunicação com Impacto", conf:"Inovação Social", tipo:"Painel", speakers:["Josina Oliveira do Nascimento","Viviane Japiassú Viana","Caroline Oliveira do Carmo"], venue:"Kobra", palco:"Palco 28", cat:"impacto", tags:["mulheres"], why:"Comunicação a serviço de causas reais — o cruzamento exato entre o seu ofício e o que você quer que ele signifique."},
+{day:1, time:"13:00", title:"O que nos define como humanos diante da IA?", conf:"Nexus", tipo:"Painel", speakers:["Tatiana Roque","Ailton Krenak"], venue:"Kobra", palco:"Palco 32", cat:"negocios", tags:[]},
+{day:1, time:"15:00", title:"Construindo Produtos para a Geração Z", conf:"Nexus", tipo:"Painel", speakers:["Marina Motomura","Juliana Proserpio","Alê Blanco","Thiago Cruz"], venue:"Kobra", palco:"Palco 32", cat:"negocios", tags:["mulheres"]},
+{day:1, time:"16:00", title:"Quando Marcas Viram Cultura: o que festivais, plataformas e IA ensinam sobre relevância", conf:"Nexus", tipo:"Painel", speakers:["Renata Guaraná","Suzana Machado","Livia Marquez"], venue:"Kobra", palco:"Palco 32", cat:"negocios", tags:["mulheres","recomendado"], why:"Como marcas constroem relevância cultural de verdade — pensamento estratégico direto pro seu portfólio."},
+{day:1, time:"17:00", title:"Reputação, Influência e Narrativas no Mercado de Comunicação", conf:"Music Forward", tipo:"Painel", speakers:["Michelle Andrade","Ágata Cunha"], venue:"Armazém 1 A · RIW Pop Tech (Cine)", palco:"Palco 03", cat:"ia", tags:["mulheres","recomendado"], why:"Bastidor de quem constrói reputação e narrativa pra viver disso — panorama real do mercado que você quer entrar."},
+{day:1, time:"19:00", title:"Do Feed para Conversão: como a influência virou o novo motor de reputação e de vendas", conf:"Nexus", tipo:"Painel", speakers:["Pollyana Miranda","Fernanda Viola","Gustavo Rodrigues"], venue:"Kobra", palco:"Palco 32", cat:"ia", tags:["obrig","mulheres"], why:"Conteúdo que vira negócio, na prática — case direto para você aplicar no seu próprio portfólio de criação."},
+
+// ---------------- 05/08 QUARTA ----------------
+{day:2, time:"11:30", title:"O poder do journaling — a escrita diária como instrumento de clareza mental", conf:"Nexus", tipo:"Palestra", speakers:["Susana Arbex"], venue:"Kobra", palco:"Palco 32", cat:"critico", tags:[]},
+{day:2, time:"12:30", title:"Creator Economy em transformação — os caminhos que vão definir as marcas dos próximos 10 anos", conf:"Luxo Contemporâneo", tipo:"Painel", speakers:["Renata Lima","Marcia Borges","Deny Peres","Louise Peres"], venue:"Kobra", palco:"Palco 33", cat:"ia", tags:["mulheres","recomendado"], why:"Pra onde vai o mercado de criação de conteúdo na próxima década — leia isso como um mapa de carreira."},
+{day:2, time:"12:30", title:"O que escolher quando tudo parece prioridade? A agenda desafiadora das líderes", conf:"Nexus", tipo:"Painel", speakers:["Andrea Bisker","Edith Bertoletti","Cristina Fugita"], venue:"Kobra", palco:"Palco 32", cat:"critico", tags:["mulheres"]},
+{day:2, time:"13:30", title:"Quem conta o Brasil para si mesmo? Mulheres, narrativas e o poder da representação", conf:"Soft Power", tipo:"Painel", speakers:["Julia Spadaccini","Benedita Casé","Debora Lamm"], venue:"Armazém 1 A · RIW Pop Tech (Principal)", palco:"Palco 01", cat:"impacto", tags:["mulheres"]},
+{day:2, time:"13:30", title:"O Valor do Improvável — Como as ideias que transformam mercados, culturas e pessoas nascem onde ninguém está olhando", conf:"Nexus", tipo:"Palestra", speakers:["Renato Winnig"], venue:"Kobra", palco:"Palco 32", cat:"negocios", tags:[]},
+{day:2, time:"15:30", title:"A Tecnologia da Minha Independência: Os Bastidores de uma Carreira na Era Digital, com Karol Conká", conf:"Music Forward", tipo:"Painel", speakers:["Karol Conká"], venue:"Armazém 1 A · RIW Pop Tech (Principal)", palco:"Palco 01", cat:"critico", tags:["mulheres","recomendado"], why:"Reinvenção de carreira contada por quem viveu na pele — inspiração real, não teoria, pra quem está recomeçando."},
+{day:2, time:"17:30", title:"Quem Move o Brasil", conf:"Nexus", tipo:"Painel", speakers:["Vanessa Gordilho","Andrea Bisker"], venue:"Kobra", palco:"Palco 32", cat:"critico", tags:["mulheres"]},
+{day:2, time:"18:30", title:"Efeito narrativa nos negócios", conf:"Nexus", tipo:"Painel", speakers:["Bruno Santiago","Leonardo Roesler","Chris Kumakola","Paulo Giordani","Tati Amaral"], venue:"Kobra", palco:"Palco 32", cat:"negocios", tags:[]},
+
+// ---------------- 06/08 QUINTA ----------------
+{day:3, time:"10:30", title:"O novo jogo da influência: cultura, confiança e negócios", conf:"Creator Economy by CoCreators", tipo:"Palestra", speakers:["Dri Elias"], venue:"Kobra", palco:"Palco 31", cat:"ia", tags:["mulheres"]},
+{day:3, time:"10:30", title:"Criatividade infinita ou feeds entupidos? O futuro da criação com IA", conf:"Futuro do Trabalho", tipo:"Palestra", speakers:["Paulo Fernando Aguiar"], venue:"Kobra", palco:"Palco 30", cat:"ia", tags:[]},
+{day:3, time:"11:15", title:"Creator Economy sem filtro: o que o mercado precisa aprender agora", conf:"Creator Economy by CoCreators", tipo:"Painel", speakers:["Rafa Lotto","Dri Elias","Silvia Belluzzo"], venue:"Kobra", palco:"Palco 31", cat:"ia", tags:["mulheres","recomendado"]},
+{day:3, time:"11:15", title:"Blend Text: Como Fortalecer o Conteúdo da Sua Marca com IA, Alma e Intencionalidade", conf:"Rede Mulher Empreendedora", tipo:"Palestra", speakers:["Juliani Monçores"], venue:"Kobra", palco:"Palco 33", cat:"ia", tags:["mulheres","recomendado"], why:"Ferramenta prática de IA aplicada a conteúdo com identidade — leve isso direto pro seu processo de criação."},
+{day:3, time:"11:30", title:"O Linkedin Mudou. E aí?", conf:"Nexus", tipo:"Painel", speakers:["Carolina Dostal"], venue:"Kobra", palco:"Palco 32", cat:"critico", tags:["mulheres","recomendado"], why:"Seu LinkedIn é a vitrine que os recrutadores veem primeiro — saia daqui com 2-3 ajustes práticos pro seu perfil."},
+{day:3, time:"12:30", title:"Uso de IA nas campanhas de Marketing", conf:"Nexus", tipo:"Painel", speakers:["Beto Weisser","João Teixeira de Carvalho","Amanda Graciano"], venue:"Kobra", palco:"Palco 32", cat:"negocios", tags:["obrig","mulheres"], why:"Skill prática e procurada agora em toda vaga de marketing — anote os cases pra citar em entrevista."},
+{day:3, time:"12:45", title:"O Poder das Redes: Como Conexões Mudam Negócios e Carreiras", conf:"Rede Mulher Empreendedora", tipo:"Palestra", speakers:["Ana Fontes"], venue:"Kobra", palco:"Palco 33", cat:"critico", tags:["obrig"], why:"Networking é a ferramenta nº 1 de recolocação — essa palestra é praticamente um manual de como fazer isso bem."},
+{day:3, time:"13:30", title:"Comunidade é o novo alcance", conf:"Creator Economy by CoCreators", tipo:"Palestra", speakers:["Ingrid Abdo"], venue:"Kobra", palco:"Palco 31", cat:"ia", tags:["mulheres"]},
+{day:3, time:"13:45", title:"Trabalho S/A: carreira, liderança e o que realmente importa", conf:"Futuro do Trabalho", tipo:"Palestra", speakers:["Stela Campos"], venue:"Kobra", palco:"Palco 30", cat:"critico", tags:["recomendado"]},
+{day:3, time:"14:30", title:"Inovação a partir dos territórios: conhecimento, comunicação e cultura para a transformação social", conf:"Impact for Change", tipo:"Painel", speakers:["Suellen Souza","Monique Silva","Jessica Lene da Silva Santos"], venue:"Kobra", palco:"Palco 26", cat:"impacto", tags:["mulheres"]},
+{day:3, time:"15:30", title:"Criadores, código e IA: a nova economia da influência digital", conf:"Impact for Change", tipo:"Painel", speakers:["Antônio Miranda","Tatiana Roque","Francisco Figueiredo","Matheus Sodré"], venue:"Kobra", palco:"Palco 26", cat:"ia", tags:[]},
+{day:3, time:"16:30", title:"Mulheres Inovadoras: quem está construindo o futuro?", conf:"Impact for Change", tipo:"Painel", speakers:["Julia Boardman Cavalcanti","Vanessa Victorino","Simone Vasconcelos","Georgia Gomes","Rafaela Di Sabato Guerrante"], venue:"Kobra", palco:"Palco 26", cat:"critico", tags:["mulheres","recomendado"]},
+{day:3, time:"18:00", title:"Recomeçar é Estratégia: Como Navegar a Transição de Carreira em um Mundo em Transformação", conf:"Rede Mulher Empreendedora", tipo:"Palestra", speakers:["Flávia Baptistini"], venue:"Kobra", palco:"Palco 33", cat:"critico", tags:["obrig","mulheres"], why:"Este é o seu momento agora — recomeço tratado como estratégia, não como fracasso. Vá com um caderno pra essa."},
+
+// ---------------- 07/08 SEXTA ----------------
+{day:4, time:"10:30", title:"IA e Emprego: O que a tecnologia não decide por nós", conf:"Futuro do Trabalho", tipo:"Painel", speakers:["Daniel Gleizer","Iona Szkurnik"], venue:"Kobra", palco:"Palco 30", cat:"critico", tags:["mulheres","recomendado"]},
+{day:4, time:"11:15", title:"A nova disputa por confiança: quem vira talento, liderança e referência no futuro do trabalho?", conf:"Futuro do Trabalho", tipo:"Painel", speakers:["David A. Wilson","Helena Klang","Clayton Nascimento"], venue:"Kobra", palco:"Palco 30", cat:"critico", tags:[]},
+{day:4, time:"12:00", title:"Potência Feminina: Liderando a Economia do Futuro", conf:"Grupo Mulheres do Brasil", tipo:"Painel", speakers:["Juliana Rosa","Andreza Machado","Carolina Abreu","Ana Fontes"], venue:"Kobra", palco:"Palco 33", cat:"critico", tags:["mulheres","recomendado"]},
+{day:4, time:"13:45", title:"Todo profissional virou creator?", conf:"Futuro do Trabalho", tipo:"Painel", speakers:["Bruna Infurna","Iona Szkurnik"], venue:"Kobra", palco:"Palco 30", cat:"ia", tags:["obrig","mulheres"], why:"A validação de que criar conteúdo é, sim, um caminho de carreira sério — leve isso como argumento pra próxima entrevista."},
+{day:4, time:"14:30", title:"Como continuar relevante agora?", conf:"Futuro do Trabalho", tipo:"Painel", speakers:["Danilo Garbazza Vieira","Rachel Garcia","Heloisa Gomyde","Aspen Andersen"], venue:"Kobra", palco:"Palco 30", cat:"critico", tags:["mulheres"]},
+{day:4, time:"16:15", title:"O que as marcas ainda não entenderam sobre creators", conf:"Creator Economy by CoCreators", tipo:"Palestra", speakers:["Giovanna Ferrarezi","Raphaella Martins","Matheus Amaral"], venue:"Kobra", palco:"Palco 31", cat:"negocios", tags:["mulheres","recomendado"]},
+{day:4, time:"17:30", title:"O seu trabalho vai existir daqui a cinco anos?", conf:"Futuro do Trabalho", tipo:"Palestra", speakers:["Michelle Schneider"], venue:"Kobra", palco:"Palco 30", cat:"critico", tags:["mulheres","recomendado"]},
+];
+
+const DAY_LABELS = {
+  1:{d:"04 AGO", w:"Terça-feira"},
+  2:{d:"05 AGO", w:"Quarta-feira"},
+  3:{d:"06 AGO", w:"Quinta-feira"},
+  4:{d:"07 AGO", w:"Sexta-feira"},
+};
+const CAT_LABEL = {critico:"🚀 Carreira", ia:"🎥 Conteúdo", negocios:"📣 Marketing", impacto:"🌱 Impacto"};
+
+let activeFilter = "all";
+let activeDay = 1;
+let searchQuery = "";
+
+function norm(s){
+  return (s||"").toString().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+}
+
+function speakerLine(ev){
+  if(!ev.speakers || ev.speakers.length===0) return "";
+  const label = ev.speakers.length>1 ? "Palestrantes" : "Palestrante";
+  return `<div class="card-meta"><span>👤 <strong>${label}:</strong> ${ev.speakers.join(", ")}</span></div>`;
+}
+function venueLine(ev){
+  return `<div class="card-meta"><span class="mono">📍 <strong>${ev.venue||""}</strong>${ev.palco? " · "+ev.palco : ""}</span></div>`;
+}
+function badgesFor(ev){
+  let b = [`<span class="badge badge-${ev.cat}">${CAT_LABEL[ev.cat]}</span>`];
+  if(ev.tags.includes("obrig")) b.push(`<span class="badge badge-obrigatorio">Obrigatória</span>`);
+  if(ev.tags.includes("mulheres")) b.push(`<span class="badge badge-mulheres">👩 Mulheres</span>`);
+  return b.join("");
+}
+function matchesFilter(ev){
+  if(activeFilter==="all") return true;
+  if(activeFilter==="obrig") return ev.tags.includes("obrig");
+  if(activeFilter==="mulheres") return ev.tags.includes("mulheres");
+  return ev.cat===activeFilter;
+}
+function matchesSearch(ev){
+  if(!searchQuery) return true;
+  const haystack = norm([ev.title, ev.conf, ev.tipo, ev.venue, ev.palco, ...(ev.speakers||[]), ev.why||""].join(" | "));
+  return haystack.includes(searchQuery);
+}
+function cardHTML(ev, showDayTag){
+  return `
+    <div class="event-card">
+      <div class="cat-stripe cat-${ev.cat}"></div>
+      <div class="card-top">
+        <div class="card-title">${showDayTag? `<span class="search-day-tag">${DAY_LABELS[ev.day].d} · ${ev.time}</span>` : ""}${ev.title}</div>
+        <div class="badges">${badgesFor(ev)}</div>
+      </div>
+      <div class="conf-line">${ev.conf} · ${ev.tipo}</div>
+      ${speakerLine(ev)}
+      ${venueLine(ev)}
+      ${ev.why? `<div class="why"><b>Por que ir:</b> ${ev.why}</div>` : ""}
+    </div>
+  `;
+}
+
+function renderTop4(){
+  const top = EVENTS.filter(e=>e.tags.includes("obrig"));
+  document.getElementById("top4").innerHTML = top.map(ev=>`
+    <div class="boarding">
+      <div class="day-chip">${DAY_LABELS[ev.day].d} · ${DAY_LABELS[ev.day].w} · ${ev.time}</div>
+      <h4>${ev.title}</h4>
+      <div class="meta">
+        <span>${ev.conf}</span>
+        <span>📍 ${ev.venue}${ev.palco? " · "+ev.palco:""}</span>
+      </div>
+    </div>
+  `).join("");
+}
+
+function renderDayTabs(){
+  const tabs = document.getElementById("dayTabs");
+  tabs.innerHTML = Object.keys(DAY_LABELS).map(day=>{
+    const count = EVENTS.filter(e=>String(e.day)===day).length;
+    return `<div class="day-tab ${Number(day)===activeDay?'active':''}" data-day="${day}">
+      ${DAY_LABELS[day].d}<span class="count">${count}</span>
+      <span class="wk">${DAY_LABELS[day].w}</span>
+    </div>`;
+  }).join("");
+  tabs.querySelectorAll(".day-tab").forEach(el=>{
+    el.addEventListener("click", ()=>{
+      activeDay = Number(el.dataset.day);
+      renderDayTabs();
+      render();
+    });
+  });
+}
+
+function render(){
+  const container = document.getElementById("timelines");
+  const dayTabs = document.getElementById("dayTabs");
+
+  if(searchQuery){
+    dayTabs.style.display = "none";
+    const results = EVENTS
+      .filter(matchesFilter)
+      .filter(matchesSearch)
+      .sort((a,b)=> a.day-b.day || a.time.localeCompare(b.time));
+    if(results.length===0){
+      container.innerHTML = `<div class="no-results">Nenhuma palestra encontrada para "<strong>${searchQuery}</strong>". Tente outro termo — nome, palestrante, trilha ou local.</div>`;
+      return;
+    }
+    container.innerHTML = `
+      <div class="search-results-label">${results.length} palestra${results.length===1?'':'s'} encontrada${results.length===1?'':'s'}</div>
+      <div class="flat-list">${results.map(ev=>cardHTML(ev, true)).join("")}</div>
+    `;
+    return;
+  }
+
+  dayTabs.style.display = "";
+  const dayEvents = EVENTS
+    .filter(e=>e.day===activeDay)
+    .filter(matchesFilter)
+    .sort((a,b)=>a.time.localeCompare(b.time));
+
+  if(dayEvents.length===0){
+    container.innerHTML = `<div class="no-results">Nenhuma palestra deste dia bate com o filtro selecionado.</div>`;
+    return;
+  }
+
+  const html = dayEvents.map(ev=>`
+    <div class="slot">
+      <div class="slot-time">${ev.time}</div>
+      ${cardHTML(ev, false)}
+    </div>
+  `).join("");
+  container.innerHTML = `<div class="timeline">${html}</div>`;
+}
+
+document.getElementById("filters").addEventListener("click", (e)=>{
+  const chip = e.target.closest(".chip");
+  if(!chip) return;
+  document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
+  chip.classList.add("active");
+  activeFilter = chip.dataset.filter;
+  render();
+});
+
+const searchInput = document.getElementById("searchInput");
+const searchBox = document.getElementById("searchBox");
+const searchClear = document.getElementById("searchClear");
+searchInput.addEventListener("input", ()=>{
+  searchQuery = norm(searchInput.value.trim());
+  searchBox.classList.toggle("has-value", searchInput.value.length>0);
+  render();
+});
+searchClear.addEventListener("click", ()=>{
+  searchInput.value = "";
+  searchQuery = "";
+  searchBox.classList.remove("has-value");
+  searchInput.focus();
+  render();
+});
+
+document.getElementById("stat-total").textContent = EVENTS.length;
+document.getElementById("stat-obrig").textContent = EVENTS.filter(e=>e.tags.includes("obrig")).length;
+document.getElementById("stat-mulheres").textContent = EVENTS.filter(e=>e.tags.includes("mulheres")).length;
+
+renderTop4();
+renderDayTabs();
+render();
+</script>
