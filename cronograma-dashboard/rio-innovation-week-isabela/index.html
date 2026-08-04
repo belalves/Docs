@@ -1,0 +1,775 @@
+<title>Rio Innovation Week 2026 — Manifesto de Isabela</title>
+<style>
+  :root{
+    --ink-900:#0a1e2b;
+    --ink-700:#123246;
+    --ink-500:#365065;
+    --accent:#ff6b35;
+    --accent-dim:#c9491c;
+    --teal:#2a9d8f;
+    --sand:#e8e4d8;
+    --bg:#eef1ee;
+    --surface:#ffffff;
+    --surface-2:#e4e9e6;
+    --text:#0e2431;
+    --text-dim:#4c6272;
+    --line:#c7d0cb;
+    --crit:#c8352c;
+    --crit-bg:#fbe4e1;
+    --women:#a8377f;
+    --women-bg:#f8e2ef;
+    --biz:#a5720c;
+    --biz-bg:#f7ead0;
+    --impact:#2f7d55;
+    --impact-bg:#deefe4;
+    --tech:#2461a8;
+    --tech-bg:#dfe9f5;
+    --font-body: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    --font-display: "Arial Narrow", "Helvetica Neue Condensed", Impact, var(--font-body);
+    --font-mono: "SF Mono", "Consolas", "Menlo", monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#081722;
+      --surface:#0f2735;
+      --surface-2:#122e3f;
+      --text:#e8eef1;
+      --text-dim:#93aab8;
+      --line:#1f3f52;
+      --sand:#2a3b30;
+      --crit-bg:#3a1a17;
+      --crit:#ff8a7a;
+      --women-bg:#3a1830;
+      --women:#f3a3d4;
+      --biz-bg:#382b0e;
+      --biz:#f0c15c;
+      --impact-bg:#12301f;
+      --impact:#7fd6a4;
+      --tech-bg:#0f2740;
+      --tech:#8bc0ec;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#081722; --surface:#0f2735; --surface-2:#122e3f; --text:#e8eef1; --text-dim:#93aab8; --line:#1f3f52; --sand:#2a3b30;
+    --crit-bg:#3a1a17; --crit:#ff8a7a; --women-bg:#3a1830; --women:#f3a3d4; --biz-bg:#382b0e; --biz:#f0c15c;
+    --impact-bg:#12301f; --impact:#7fd6a4; --tech-bg:#0f2740; --tech:#8bc0ec;
+  }
+  :root[data-theme="light"]{
+    --bg:#eef1ee; --surface:#ffffff; --surface-2:#e4e9e6; --text:#0e2431; --text-dim:#4c6272; --line:#c7d0cb; --sand:#e8e4d8;
+    --crit-bg:#fbe4e1; --crit:#c8352c; --women-bg:#f8e2ef; --women:#a8377f; --biz-bg:#f7ead0; --biz:#a5720c;
+    --impact-bg:#deefe4; --impact:#2f7d55; --tech-bg:#dfe9f5; --tech:#2461a8;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px 80px;}
+
+  /* ---------- HERO / MANIFEST HEADER ---------- */
+  .hero{
+    background:
+      repeating-linear-gradient(135deg, rgba(255,107,53,0.06) 0 2px, transparent 2px 22px),
+      linear-gradient(180deg, var(--ink-900), var(--ink-700));
+    color:#f4f1e9;
+    padding:44px 28px 30px;
+    margin:0 0 26px;
+    border-radius:0 0 18px 18px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:0; height:10px;
+    background:repeating-linear-gradient(90deg, var(--accent) 0 26px, #f4f1e9 26px 30px);
+    opacity:.85;
+  }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:flex;
+    gap:10px;
+    align-items:center;
+    margin-bottom:14px;
+  }
+  .eyebrow .tag{
+    border:1px solid rgba(255,107,53,.55);
+    padding:2px 8px;
+    border-radius:2px;
+  }
+  h1{
+    font-family:var(--font-display);
+    font-stretch:condensed;
+    font-weight:800;
+    font-size:clamp(2rem, 5vw, 3.1rem);
+    letter-spacing:.01em;
+    text-transform:uppercase;
+    margin:0 0 6px;
+    text-wrap:balance;
+    line-height:1.02;
+  }
+  .hero-sub{
+    color:#c9d6d2;
+    font-size:1.02rem;
+    max-width:640px;
+    margin-bottom:22px;
+  }
+  .manifest-card{
+    background:rgba(244,241,233,.06);
+    border:1px solid rgba(244,241,233,.18);
+    border-left:4px solid var(--accent);
+    border-radius:8px;
+    padding:16px 18px;
+    max-width:720px;
+    font-size:.94rem;
+    color:#dfe7e3;
+  }
+  .manifest-card b{color:#fff;}
+
+  .stat-row{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-top:22px;
+  }
+  .stat{
+    background:rgba(244,241,233,.05);
+    border:1px solid rgba(244,241,233,.15);
+    border-radius:8px;
+    padding:10px 16px;
+    font-family:var(--font-mono);
+    min-width:110px;
+  }
+  .stat .n{font-size:1.4rem;font-weight:700;color:var(--accent);}
+  .stat .l{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:#a9b8b3;}
+
+  /* ---------- BOARDING PASS: TOP 4 ---------- */
+  section{margin-bottom:38px;}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:12px;
+    border-bottom:2px solid var(--line);
+    padding-bottom:8px;
+    margin-bottom:16px;
+    flex-wrap:wrap;
+  }
+  .section-title{
+    font-family:var(--font-display);
+    font-stretch:condensed;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+    font-size:1.3rem;
+  }
+  .section-note{color:var(--text-dim); font-size:.85rem;}
+
+  .top4-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+    gap:14px;
+  }
+  .boarding{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    position:relative;
+    padding:16px 16px 14px;
+    box-shadow:0 1px 0 var(--line);
+  }
+  .boarding::before{
+    content:"";
+    position:absolute; left:0; top:14px; bottom:14px; width:4px;
+    background:var(--accent);
+    border-radius:2px;
+  }
+  .boarding .day-chip{
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    color:var(--accent-dim);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    margin-bottom:6px;
+  }
+  .boarding h4{
+    margin:0 0 8px;
+    font-size:1.02rem;
+    line-height:1.3;
+  }
+  .boarding .meta{
+    font-family:var(--font-mono);
+    font-size:.78rem;
+    color:var(--text-dim);
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+
+  /* ---------- SEARCH ---------- */
+  .search-row{
+    display:flex;
+    gap:10px;
+    margin-bottom:14px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .search-box{
+    position:relative;
+    flex:1 1 320px;
+    min-width:240px;
+  }
+  .search-box input{
+    width:100%;
+    font-family:var(--font-body);
+    font-size:.92rem;
+    padding:11px 40px 11px 38px;
+    border-radius:8px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    color:var(--text);
+  }
+  .search-box input:focus{
+    outline:2px solid var(--accent);
+    outline-offset:-1px;
+  }
+  .search-box .icon{
+    position:absolute; left:12px; top:50%; transform:translateY(-50%);
+    color:var(--text-dim);
+    font-size:.95rem;
+    pointer-events:none;
+  }
+  .search-box .clear{
+    position:absolute; right:8px; top:50%; transform:translateY(-50%);
+    background:none; border:none; cursor:pointer;
+    color:var(--text-dim);
+    font-size:.85rem;
+    padding:4px 8px;
+    border-radius:6px;
+    display:none;
+  }
+  .search-box .clear:hover{background:var(--surface-2); color:var(--text);}
+  .search-box.has-value .clear{display:block;}
+  .search-hint{
+    font-family:var(--font-mono);
+    font-size:.78rem;
+    color:var(--text-dim);
+  }
+  .search-results-label{
+    font-family:var(--font-mono);
+    font-size:.8rem;
+    color:var(--text-dim);
+    margin-bottom:12px;
+  }
+  .search-day-tag{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    font-weight:700;
+    color:var(--accent-dim);
+    background:var(--surface-2);
+    border-radius:4px;
+    padding:2px 8px;
+    margin-right:8px;
+  }
+  :root[data-theme="dark"] .search-day-tag, @media (prefers-color-scheme:dark){.search-day-tag{color:var(--accent);}}
+  .no-results{
+    text-align:center;
+    padding:40px 20px;
+    color:var(--text-dim);
+    font-size:.92rem;
+  }
+  .flat-list{display:flex; flex-direction:column; gap:12px;}
+
+  /* ---------- FILTERS ---------- */
+  .filters{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+  }
+  .chip{
+    font-family:var(--font-mono);
+    font-size:.76rem;
+    letter-spacing:.02em;
+    padding:7px 13px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    color:var(--text-dim);
+    cursor:pointer;
+    user-select:none;
+    transition:all .15s ease;
+  }
+  .chip:hover{border-color:var(--accent);}
+  .chip.active{
+    background:var(--ink-900);
+    border-color:var(--ink-900);
+    color:#fff;
+  }
+  :root[data-theme="dark"] .chip.active, @media (prefers-color-scheme:dark){.chip.active{background:var(--accent); border-color:var(--accent); color:#1a0e08;}}
+
+  /* ---------- DAY TABS ---------- */
+  .day-tabs{
+    display:flex;
+    gap:6px;
+    margin-bottom:20px;
+    border-bottom:1px solid var(--line);
+    flex-wrap:wrap;
+  }
+  .day-tab{
+    font-family:var(--font-mono);
+    font-size:.85rem;
+    padding:10px 16px 12px;
+    cursor:pointer;
+    color:var(--text-dim);
+    border-bottom:3px solid transparent;
+    text-transform:uppercase;
+    letter-spacing:.03em;
+  }
+  .day-tab .wk{display:block;font-size:.68rem;opacity:.75;font-family:var(--font-body);text-transform:none;letter-spacing:0;}
+  .day-tab.active{
+    color:var(--text);
+    border-bottom-color:var(--accent);
+    font-weight:700;
+  }
+  .day-tab .count{
+    display:inline-block;
+    margin-left:6px;
+    background:var(--surface-2);
+    color:var(--text-dim);
+    border-radius:999px;
+    padding:1px 7px;
+    font-size:.72rem;
+  }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{position:relative; padding-left:86px;}
+  .timeline::before{
+    content:"";
+    position:absolute; left:70px; top:6px; bottom:6px; width:2px;
+    background:var(--line);
+  }
+  .slot{position:relative; margin-bottom:16px;}
+  .slot-time{
+    position:absolute; left:-86px; top:14px; width:64px;
+    text-align:right;
+    font-family:var(--font-mono);
+    font-weight:700;
+    font-size:.92rem;
+    color:var(--text);
+  }
+  .slot-time::after{
+    content:"";
+    position:absolute; right:-24px; top:5px;
+    width:9px; height:9px; border-radius:50%;
+    background:var(--surface);
+    border:2px solid var(--accent);
+  }
+
+  .event-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:14px 16px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    position:relative;
+    overflow:hidden;
+  }
+  .event-card.is-hidden{display:none;}
+  .cat-stripe{
+    position:absolute; left:0; top:0; bottom:0; width:5px;
+  }
+  .cat-critico{background:var(--crit);}
+  .cat-ia{background:var(--tech);}
+  .cat-negocios{background:var(--biz);}
+  .cat-impacto{background:var(--impact);}
+
+  .card-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:flex-start;
+    flex-wrap:wrap;
+  }
+  .card-title{
+    font-size:1rem;
+    font-weight:700;
+    line-height:1.35;
+    max-width:640px;
+  }
+  .badges{display:flex; gap:6px; flex-wrap:wrap; flex-shrink:0;}
+  .badge{
+    font-family:var(--font-mono);
+    font-size:.68rem;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    padding:3px 9px;
+    border-radius:4px;
+    white-space:nowrap;
+    font-weight:700;
+  }
+  .badge-critico{background:var(--crit-bg); color:var(--crit);}
+  .badge-ia{background:var(--tech-bg); color:var(--tech);}
+  .badge-negocios{background:var(--biz-bg); color:var(--biz);}
+  .badge-impacto{background:var(--impact-bg); color:var(--impact);}
+  .badge-mulheres{background:var(--women-bg); color:var(--women);}
+  .badge-obrigatorio{background:var(--ink-900); color:#fff;}
+  :root[data-theme="dark"] .badge-obrigatorio, @media (prefers-color-scheme:dark){.badge-obrigatorio{background:var(--accent); color:#1a0e08;}}
+
+  .conf-line{
+    font-size:.82rem;
+    color:var(--text-dim);
+    font-style:italic;
+  }
+
+  .card-meta{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    font-size:.85rem;
+    color:var(--text-dim);
+  }
+  .card-meta strong{color:var(--text); font-weight:600;}
+  .card-meta .mono{font-family:var(--font-mono);}
+
+  .why{
+    font-size:.85rem;
+    background:var(--surface-2);
+    border-radius:6px;
+    padding:8px 12px;
+    color:var(--text);
+  }
+  .why b{color:var(--accent-dim);}
+  :root[data-theme="dark"] .why b, @media (prefers-color-scheme:dark){.why b{color:var(--accent);}}
+
+  .no-venue{color:var(--text-dim); font-style:italic; font-size:.8rem;}
+
+  /* ---------- TIPS ---------- */
+  .tips-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:14px;
+  }
+  .tip{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-top:3px solid var(--accent);
+    border-radius:8px;
+    padding:16px;
+  }
+  .tip h5{margin:0 0 6px; font-size:.95rem;}
+  .tip p{margin:0; font-size:.86rem; color:var(--text-dim);}
+
+  .legend{
+    display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;
+  }
+
+  footer{
+    text-align:center;
+    color:var(--text-dim);
+    font-size:.82rem;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+  }
+
+  @media (max-width:640px){
+    .timeline{padding-left:64px;}
+    .timeline::before{left:50px;}
+    .slot-time{left:-64px; width:46px; font-size:.8rem;}
+    .slot-time::after{right:-17px;}
+  }
+</style>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow"><span class="tag">MANIFESTO DE EMBARQUE</span><span>Zona Portuária · Rio de Janeiro</span></div>
+    <h1>Rio Innovation Week 2026</h1>
+    <p class="hero-sub">04 a 08 de agosto · Armazéns e navios da Zona Portuária. Guia unificado e priorizado para navegar 40+ palestras sem perder as que importam.</p>
+    <div class="manifest-card">
+      <b>Para você, Isabela:</b> desenvolvedora back-end sênior em C#, com rota traçada para IA aplicada (agentes, RAG, Semantic Kernel), segurança / ethical hacking, empreendedorismo e impacto social. Todo cartão abaixo foi cruzado com esse perfil — os que carregam o selo <span class="badge badge-obrigatorio" style="padding:2px 7px;">OBRIGATÓRIA</span> são para não errar o embarque.
+    </div>
+    <div class="stat-row">
+      <div class="stat"><div class="n" id="stat-total">–</div><div class="l">Palestras no roteiro</div></div>
+      <div class="stat"><div class="n">4</div><div class="l">Dias de evento</div></div>
+      <div class="stat"><div class="n" id="stat-obrig">–</div><div class="l">Obrigatórias</div></div>
+      <div class="stat"><div class="n" id="stat-mulheres">–</div><div class="l">Com palestrantes mulheres</div></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <div class="section-title">⭐ Passagem confirmada — as 4 que não podem furar</div>
+      <div class="section-note">Se o tempo apertar, é nelas que você embarca.</div>
+    </div>
+    <div class="top4-grid" id="top4"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div class="section-title">🗂️ Roteiro completo por dia</div>
+      <div class="section-note">Clique nos filtros para isolar uma trilha</div>
+    </div>
+    <div class="search-row">
+      <div class="search-box" id="searchBox">
+        <span class="icon">🔎</span>
+        <input type="text" id="searchInput" placeholder="Buscar por título, palestrante, trilha ou local (ex: Kobra, criptografia, Bianca)…" autocomplete="off">
+        <button class="clear" id="searchClear" type="button" aria-label="Limpar busca">✕</button>
+      </div>
+      <span class="search-hint">Busca em todos os dias ao mesmo tempo</span>
+    </div>
+    <div class="filters" id="filters">
+      <span class="chip active" data-filter="all">Todas</span>
+      <span class="chip" data-filter="obrig">🔴 Obrigatórias</span>
+      <span class="chip" data-filter="critico">🔒 Crítico · Segurança</span>
+      <span class="chip" data-filter="ia">🤖 IA & Dev</span>
+      <span class="chip" data-filter="negocios">💼 Negócios</span>
+      <span class="chip" data-filter="impacto">❤️ Impacto social</span>
+      <span class="chip" data-filter="mulheres">👩 Palestrantes mulheres</span>
+    </div>
+
+    <div class="day-tabs" id="dayTabs"></div>
+    <div id="timelines"></div>
+  </section>
+
+  <section>
+    <div class="section-head"><div class="section-title">🧭 Como aproveitar ao máximo</div></div>
+    <div class="tips-grid">
+      <div class="tip"><h5>📝 Ancore nas obrigatórias</h5><p>São as 4 mais alinhadas ao seu perfil back-end + IA. Reserve os horários no seu calendário com 30 min de antecedência e chegue cedo — cadeira de frente ajuda na hora de perguntar.</p></div>
+      <div class="tip"><h5>👥 Busque as palestrantes mulheres</h5><p>Cartões com o selo 👩 têm painelistas mulheres em posições técnicas ou de liderança. Prepare 1-2 perguntas genuínas e puxe conversa no intervalo.</p></div>
+      <div class="tip"><h5>🎯 Combine trilhas por dia</h5><p>Não emende só palestras técnicas: misture 1-2 de IA/segurança com 1 de negócios e 1 de impacto social por dia. Isso evita fadiga e amplia sua rede.</p></div>
+      <div class="tip"><h5>🤝 Networking com intenção</h5><p>Leve cartão de visita, caderno (ou Notion aberto) e uma pergunta pronta: "Como você faria isso em C#/.NET?". Conecte no LinkedIn em até 48h citando um ponto específico da fala.</p></div>
+      <div class="tip"><h5>🔒 Foco em ethical hacking</h5><p>As palestras de criptografia pós-quântica, governança de agentes e cibersegurança são as que mais alimentam sua jornada ofensiva/defensiva — não pule essa trilha mesmo em dias cheios.</p></div>
+      <div class="tip"><h5>❤️ Não deixe o impacto social de lado</h5><p>Educação + IA cruza sua técnica com seus valores — pode virar semente de projeto social com amigas.</p></div>
+    </div>
+    <div class="legend">
+      <span class="badge badge-critico">🔒 Crítico</span>
+      <span class="badge badge-ia">🤖 IA & Dev</span>
+      <span class="badge badge-negocios">💼 Negócios</span>
+      <span class="badge badge-impacto">❤️ Impacto</span>
+      <span class="badge badge-mulheres">👩 Mulheres</span>
+      <span class="badge badge-obrigatorio">Obrigatória</span>
+    </div>
+  </section>
+
+  <footer>
+    <p>Guia unificado a partir dos 3 roteiros gerados para Isabela — nada foi removido, apenas cruzado, organizado por horário e enriquecido com local, armazém e recomendação.</p>
+    <p style="margin-top:6px;">Boa viagem pela Zona Portuária. 🚢</p>
+  </footer>
+</div>
+
+<script>
+const EVENTS = [
+// ---------------- 04/08 TERÇA ----------------
+{day:1, time:"11:00", title:"Como a Década dos Oceanos da UNESCO cria uma nova fronteira de inovação, empreendedorismo e investimentos na Economia Azul", conf:"Clean Up The World", tipo:"Mini Palestra", speakers:["Louis Ventura"], venue:"Armazém 4", palco:"Palco 17", cat:"impacto", tags:[]},
+{day:1, time:"11:00", title:"Brasil: O Laboratório do Futuro Financeiro — Como Pix, Open Finance e IA Estão Reinventando os Negócios", conf:"VC Square", tipo:"Painel", speakers:["Carlos Lino","Sulivan Borges Brasil","Bruno Loiola"], venue:"Armazém 5", palco:"Palco 23 A", cat:"negocios", tags:["prioridade"], why:"Tendência de fintech quente + networking direto com investidores para sua visão de renda passiva tech."},
+{day:1, time:"11:00", title:"Inteligência Artificial: de eficiência a risco estrutural", conf:"—", tipo:"Palestra", speakers:["Angelo Coelho","Andrei Graça","Francesco Bottino"], venue:"Armazém 5", palco:"Palco 23 B", cat:"critico", tags:[]},
+{day:1, time:"12:00", title:"Cibersegurança e IA: vulnerabilidade invisível", conf:"—", tipo:"Palestra", speakers:["Renato Maia","Abian Laginestra","Rodrigo Almeida Gonçalves"], venue:"Armazém 5", palco:"Palco 23 B", cat:"critico", tags:["obrig"], why:"Base direta para sua jornada em ethical hacking: como vulnerabilidades de IA ficam invisíveis em produção."},
+{day:1, time:"13:30", title:"Agentes de IA: executar, não apenas conversar", conf:"—", tipo:"Palestra", speakers:["José Henrique","Karine Mansour","Marcella Calfi"], venue:"Armazém 5", palco:"Palco 21 A", cat:"ia", tags:["obrig"], why:"Agentes que executam (não só conversam) é exatamente a direção do que você estuda com Semantic Kernel/.NET."},
+{day:1, time:"16:30", title:"IA, educação e mobilidade social: construindo oportunidades em uma sociedade em transformação", conf:"EdTech", tipo:"Painel", speakers:["Filipe Ubaldo","Dormevilly Tertius","Edson Menezes"], venue:"Kobra", palco:"Palco 26", cat:"impacto", tags:["prioridade"], why:"Alinha tecnologia com seus valores de impacto social — pode inspirar projetos futuros com comunidades."},
+{day:1, time:"17:00", title:"Operações Invisíveis: Como Tecnologia, Dados e Monitoramento Remoto Estruturam Poder", conf:"Deep Tech", tipo:"Painel", speakers:["Ricardo Cassiano","Martin Ficarelli","Alex Pereira"], venue:"Navio: Nam Atlântico", palco:"Palco 9", cat:"critico", tags:[], why:"Mindset ofensivo x defensivo: pensar como quem explora ajuda a defender melhor."},
+{day:1, time:"18:30", title:"IA + Climatechs no Brasil: tendências de startups de IA aplicada à soluções climáticas", conf:"VC Square", tipo:"Painel", speakers:["Andre Sih","Gustavo da Paz Ballestreri","Leandro Vinícius"], venue:"Armazém 5", palco:"Palco 23 A", cat:"negocios", tags:[]},
+
+// ---------------- 05/08 QUARTA ----------------
+{day:2, time:"11:15", title:"Letramento crítico em IA", conf:"EdTech", tipo:"Palestra", speakers:["Pablo Sales"], venue:"Kobra", palco:"Palco 26", cat:"impacto", tags:[]},
+{day:2, time:"12:45", title:"AndragogIA: educação empreendedora nos tempos de IA generativa", conf:"EdTech", tipo:"Painel", speakers:["Ana Paula Celso de Miranda","Mirella Domenich","Alice Freitas"], venue:"Kobra", palco:"Palco 26", cat:"impacto", tags:["mulheres"]},
+{day:2, time:"13:30", title:"IA nas organizações: quem governa o algoritmo?", conf:"AI & ROBOTICS", tipo:"Painel", speakers:["Daniel Cardoso de Brum","Bianca Santos","Juliana Rocha Rodrigues Barcellos"], venue:"Kobra", palco:"Palco 30", cat:"critico", tags:["mulheres","recomendado"], why:"Governança de algoritmos é essencial para sua trilha de segurança + ética em IA."},
+{day:2, time:"13:30", title:"IA, Dados e o Novo Motor da Inovação Aberta", conf:"Open Innovation", tipo:"Painel", speakers:["Karine Mansour","Thiago Iglesias","Marcelo Alves da Silva"], venue:"Armazém 5", palco:"Palco 21 B", cat:"ia", tags:["mulheres"]},
+{day:2, time:"14:30", title:"IA Física: quando a IA ganha um corpo", conf:"—", tipo:"Palestra", speakers:["Eco Moliterno","Renate Fuchs"], venue:"Kobra", palco:"Palco 30", cat:"ia", tags:["mulheres"]},
+{day:2, time:"15:30", title:"Blockchain e dados científicos", conf:"Deep Tech", tipo:"Painel", speakers:["Wilson Melo","Luiz Eduardo Folly de Campos","Mônica Vianna"], venue:"Armazém 5", palco:"Palco 24 B", cat:"ia", tags:[]},
+{day:2, time:"17:30", title:"IA na escola pública: da formação à transformação", conf:"EdTech", tipo:"Painel", speakers:["Hermom Tangarife","Amanda Santos","Hugo Nepomuceno"], venue:"Kobra", palco:"Palco 26", cat:"impacto", tags:["mulheres"], why:"Educação pública + IA: setor em franca expansão, cruza técnica com inclusão."},
+{day:2, time:"17:30", title:"Metodologia IDW: Cultura e Relevância em Volume Máximo com IA", conf:"RIW Pop Tech", tipo:"Painel", speakers:["Alan Nascimento","Marcelly Firmino","Juliana Castro"], venue:"Armazém 1 A · RIW Pop Tech (Principal)", palco:"Palco 01", cat:"ia", tags:["mulheres"]},
+
+// ---------------- 06/08 QUINTA ----------------
+{day:3, time:"10:45", title:"IA em Escala: como grandes empresas transformam inovação em resultados", conf:"Innova Tech", tipo:"Painel", speakers:["Paulo Henrique de Abreu Pontes","Fabio de Freitas"], venue:"Armazém 3", palco:"Palco 12", cat:"ia", tags:["obrig"], why:"Padrões arquiteturais em escala são sua especialidade em C# — veja como big tech implementa de verdade."},
+{day:3, time:"11:30", title:"Autossuficiência em Bioproteção: Desenvolvimento de Testes para Biodefesa", conf:"Clean Up The World", tipo:"Painel", speakers:["Andreia Carneiro da Silva","Carlos Médicis Morel","Claudio Lisias Mafra de Siqueira"], venue:"Navio: Vital de Oliveira", palco:"Armazém 5 - Varanda", cat:"critico", tags:["mulheres"], why:"Segurança em contextos críticos e compliance em ambientes regulados."},
+{day:3, time:"13:00", title:"Enterprise Knowledge Layer: IA entendendo o negócio", conf:"—", tipo:"Palestra", speakers:["Alejandro Sousa"], venue:"Armazém 5", palco:"Palco 24 B", cat:"ia", tags:[]},
+{day:3, time:"13:30", title:"Como a identificação de oportunidades de AI pode transformar o negócio", conf:"Innova Tech", tipo:"Painel", speakers:["Bruna Vajgel","Simone Traversin"], venue:"Armazém 3", palco:"Palco 12", cat:"negocios", tags:["mulheres"]},
+{day:3, time:"13:30", title:"Criptografia Pós-Quântica", conf:"Deep Tech", tipo:"Palestra", speakers:["Augusto Parisot de Gusmão Neto"], venue:"Navio: Vital de Oliveira", palco:"Armazém 5 - Varanda", cat:"critico", tags:["recomendado"], why:"Tendência futura de segurança: computadores quânticos vão quebrar protocolos atuais — conhecimento de vanguarda para sua carreira."},
+{day:3, time:"14:30", title:"IA com Segurança: o que separa produtos que escalam dos que viram mancos", conf:"RIW Pop Tech", tipo:"Painel", speakers:["Ben Hur de Assis Correia","Antonio Sabadine","Leonardo Blunk"], venue:"Armazém 1 A · RIW Pop Tech (Disco)", palco:"Palco 02", cat:"critico", tags:["recomendado"], why:"Segurança em IA em produção — exatamente seu contexto de backend C#."},
+{day:3, time:"14:30", title:"Inteligência Artificial e Tecnologias Disruptivas: Protegendo Dados e Decisões na Sociedade Digital", conf:"AI in Action", tipo:"Palestra", speakers:["Daisy Albuquerque","Fernando Durier","Vítor G. Andrezo"], venue:"Kobra", palco:"Palco 27", cat:"critico", tags:["mulheres"]},
+{day:3, time:"14:30", title:"Contratar o Novo: o Direito Administrativo na era da inovação", conf:"Innova Tech", tipo:"Palestra", speakers:["Marcos Vinicius Souza do Carmo"], venue:"Armazém 3", palco:"Palco 12", cat:"negocios", tags:[]},
+{day:3, time:"16:30", title:"Intelligent Storytelling: Como Revelar a Melhor História que sua Matéria Prima Contém", conf:"RIW Pop Tech", tipo:"Palestra", speakers:["Felipe Lacerda"], venue:"Armazém 1 A · RIW Pop Tech (Cine)", palco:"Palco 03", cat:"ia", tags:[]},
+{day:3, time:"16:30", title:"Cibersegurança na era da IA", conf:"—", tipo:"Painel", speakers:["Sergio Muniz","Kizzy Benjamin"], venue:"Armazém 5", palco:"Palco 21 A", cat:"critico", tags:["obrig","mulheres"], why:"Painel-chave de segurança + IA — seu diferencial competitivo declarado."},
+
+// ---------------- 07/08 SEXTA ----------------
+{day:4, time:"12:30", title:"Do Dado à Emoção: Como a IA Pode Pintar a Consciência Humana em Tempo Real", conf:"RIW Pop Tech", tipo:"Palestra", speakers:["Ferdi Alici"], venue:"Armazém 1 A · RIW Pop Tech (Principal)", palco:"Palco 01", cat:"ia", tags:[]},
+{day:4, time:"13:30", title:"IA para quem não é big tech — Como uma startup de jornalismo usa uma infraestrutura de agentes para decidir melhor", conf:"AI in Action", tipo:"Palestra", speakers:["Vitor Conceição"], venue:"Kobra", palco:"Palco 27", cat:"ia", tags:["obrig"], why:"IA prática fora do universo big tech, com agentes — ligação direta com seus projetos de automação n8n + Claude."},
+{day:4, time:"16:15", title:"Governando Multi AI Agents", conf:"—", tipo:"Palestra", speakers:["Matheus Bitencourt"], venue:"Armazém 5", palco:"Palco 24 B", cat:"critico", tags:["recomendado"]},
+{day:4, time:"16:30", title:"Cibersegurança no sistema financeiro", conf:"—", tipo:"Palestra", speakers:["Nycholas Szucko"], venue:"Armazém 5", palco:"Palco 23 B", cat:"critico", tags:[]},
+{day:4, time:"16:30", title:"Governança Digital como instrumento de competitividade, confiança e crescimento sustentável", conf:"MIT Technology Review Brasil", tipo:"Painel", speakers:["Tatiana Campello"], venue:"Kobra", palco:"Palco 32", cat:"negocios", tags:["mulheres"], why:"Governança + dados: especialista em dados, boa conexão para segurança/ética."},
+];
+
+const DAY_LABELS = {
+  1:{d:"04 AGO", w:"Terça-feira"},
+  2:{d:"05 AGO", w:"Quarta-feira"},
+  3:{d:"06 AGO", w:"Quinta-feira"},
+  4:{d:"07 AGO", w:"Sexta-feira"},
+};
+const CAT_LABEL = {critico:"🔒 Crítico", ia:"🤖 IA & Dev", negocios:"💼 Negócios", impacto:"❤️ Impacto"};
+
+let activeFilter = "all";
+let activeDay = 1;
+let searchQuery = "";
+
+function norm(s){
+  return (s||"").toString().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+}
+
+function speakerLine(ev){
+  if(!ev.speakers || ev.speakers.length===0) return "";
+  const label = ev.speakers.length>1 ? "Palestrantes" : "Palestrante";
+  return `<div class="card-meta"><span>👤 <strong>${label}:</strong> ${ev.speakers.join(", ")}</span></div>`;
+}
+function venueLine(ev){
+  return `<div class="card-meta"><span class="mono">📍 <strong>${ev.venue||""}</strong>${ev.palco? " · "+ev.palco : ""}</span></div>`;
+}
+function badgesFor(ev){
+  let b = [`<span class="badge badge-${ev.cat}">${CAT_LABEL[ev.cat]}</span>`];
+  if(ev.tags.includes("obrig")) b.push(`<span class="badge badge-obrigatorio">Obrigatória</span>`);
+  if(ev.tags.includes("mulheres")) b.push(`<span class="badge badge-mulheres">👩 Mulheres</span>`);
+  return b.join("");
+}
+function matchesFilter(ev){
+  if(activeFilter==="all") return true;
+  if(activeFilter==="obrig") return ev.tags.includes("obrig");
+  if(activeFilter==="mulheres") return ev.tags.includes("mulheres");
+  return ev.cat===activeFilter;
+}
+function matchesSearch(ev){
+  if(!searchQuery) return true;
+  const haystack = norm([ev.title, ev.conf, ev.tipo, ev.venue, ev.palco, ...(ev.speakers||[]), ev.why||""].join(" | "));
+  return haystack.includes(searchQuery);
+}
+function cardHTML(ev, showDayTag){
+  return `
+    <div class="event-card">
+      <div class="cat-stripe cat-${ev.cat}"></div>
+      <div class="card-top">
+        <div class="card-title">${showDayTag? `<span class="search-day-tag">${DAY_LABELS[ev.day].d} · ${ev.time}</span>` : ""}${ev.title}</div>
+        <div class="badges">${badgesFor(ev)}</div>
+      </div>
+      <div class="conf-line">${ev.conf} · ${ev.tipo}</div>
+      ${speakerLine(ev)}
+      ${venueLine(ev)}
+      ${ev.why? `<div class="why"><b>Por que ir:</b> ${ev.why}</div>` : ""}
+    </div>
+  `;
+}
+
+function renderTop4(){
+  const top = EVENTS.filter(e=>e.tags.includes("obrig"));
+  document.getElementById("top4").innerHTML = top.map(ev=>`
+    <div class="boarding">
+      <div class="day-chip">${DAY_LABELS[ev.day].d} · ${DAY_LABELS[ev.day].w} · ${ev.time}</div>
+      <h4>${ev.title}</h4>
+      <div class="meta">
+        <span>${ev.conf}</span>
+        <span>📍 ${ev.venue}${ev.palco? " · "+ev.palco:""}</span>
+      </div>
+    </div>
+  `).join("");
+}
+
+function renderDayTabs(){
+  const tabs = document.getElementById("dayTabs");
+  tabs.innerHTML = Object.keys(DAY_LABELS).map(day=>{
+    const count = EVENTS.filter(e=>String(e.day)===day).length;
+    return `<div class="day-tab ${Number(day)===activeDay?'active':''}" data-day="${day}">
+      ${DAY_LABELS[day].d}<span class="count">${count}</span>
+      <span class="wk">${DAY_LABELS[day].w}</span>
+    </div>`;
+  }).join("");
+  tabs.querySelectorAll(".day-tab").forEach(el=>{
+    el.addEventListener("click", ()=>{
+      activeDay = Number(el.dataset.day);
+      renderDayTabs();
+      render();
+    });
+  });
+}
+
+function render(){
+  const container = document.getElementById("timelines");
+  const dayTabs = document.getElementById("dayTabs");
+
+  if(searchQuery){
+    dayTabs.style.display = "none";
+    const results = EVENTS
+      .filter(matchesFilter)
+      .filter(matchesSearch)
+      .sort((a,b)=> a.day-b.day || a.time.localeCompare(b.time));
+    if(results.length===0){
+      container.innerHTML = `<div class="no-results">Nenhuma palestra encontrada para "<strong>${searchQuery}</strong>". Tente outro termo — nome, palestrante, trilha ou local.</div>`;
+      return;
+    }
+    container.innerHTML = `
+      <div class="search-results-label">${results.length} palestra${results.length===1?'':'s'} encontrada${results.length===1?'':'s'}</div>
+      <div class="flat-list">${results.map(ev=>cardHTML(ev, true)).join("")}</div>
+    `;
+    return;
+  }
+
+  dayTabs.style.display = "";
+  const dayEvents = EVENTS
+    .filter(e=>e.day===activeDay)
+    .filter(matchesFilter)
+    .sort((a,b)=>a.time.localeCompare(b.time));
+
+  if(dayEvents.length===0){
+    container.innerHTML = `<div class="no-results">Nenhuma palestra deste dia bate com o filtro selecionado.</div>`;
+    return;
+  }
+
+  const html = dayEvents.map(ev=>`
+    <div class="slot">
+      <div class="slot-time">${ev.time}</div>
+      ${cardHTML(ev, false)}
+    </div>
+  `).join("");
+  container.innerHTML = `<div class="timeline">${html}</div>`;
+}
+
+document.getElementById("filters").addEventListener("click", (e)=>{
+  const chip = e.target.closest(".chip");
+  if(!chip) return;
+  document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
+  chip.classList.add("active");
+  activeFilter = chip.dataset.filter;
+  render();
+});
+
+const searchInput = document.getElementById("searchInput");
+const searchBox = document.getElementById("searchBox");
+const searchClear = document.getElementById("searchClear");
+searchInput.addEventListener("input", ()=>{
+  searchQuery = norm(searchInput.value.trim());
+  searchBox.classList.toggle("has-value", searchInput.value.length>0);
+  render();
+});
+searchClear.addEventListener("click", ()=>{
+  searchInput.value = "";
+  searchQuery = "";
+  searchBox.classList.remove("has-value");
+  searchInput.focus();
+  render();
+});
+
+document.getElementById("stat-total").textContent = EVENTS.length;
+document.getElementById("stat-obrig").textContent = EVENTS.filter(e=>e.tags.includes("obrig")).length;
+document.getElementById("stat-mulheres").textContent = EVENTS.filter(e=>e.tags.includes("mulheres")).length;
+
+renderTop4();
+renderDayTabs();
+render();
+</script>
