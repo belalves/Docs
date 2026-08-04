@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Rio Innovation Week 2026 — Manifesto de Isabela</title>
 <style>
   :root{
@@ -230,7 +235,7 @@
   .search-box input{
     width:100%;
     font-family:var(--font-body);
-    font-size:.92rem;
+    font-size:16px;
     padding:11px 40px 11px 38px;
     border-radius:8px;
     border:1px solid var(--line);
@@ -484,12 +489,27 @@
   }
 
   @media (max-width:640px){
+    .wrap{padding:0 14px 60px;}
+    .hero{padding:28px 18px 22px; margin:0 0 20px; border-radius:0 0 14px 14px;}
+    .hero-sub{font-size:.95rem;}
+    .manifest-card{padding:14px;}
+    .stat-row{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+    .stat{min-width:0;}
+    .section-title{font-size:1.1rem;}
     .timeline{padding-left:64px;}
     .timeline::before{left:50px;}
     .slot-time{left:-64px; width:46px; font-size:.8rem;}
     .slot-time::after{right:-17px;}
+    .card-title{max-width:none;}
+    .chip{padding:8px 12px;}
+    .day-tab{padding:9px 12px 10px;}
+  }
+  @media (max-width:380px){
+    .stat-row{grid-template-columns:1fr;}
   }
 </style>
+</head>
+<body>
 
 <div class="wrap">
   <div class="hero">
@@ -773,3 +793,5 @@ renderTop4();
 renderDayTabs();
 render();
 </script>
+</body>
+</html>
